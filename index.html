@@ -150,7 +150,7 @@ table.calc th { background:var(--exp-bg); font-weight:600; text-align:left; }
 
 /* Mobile responsive */
 @media (max-width:600px) {
-  .header { padding:16px 12px 10px; }
+  .header { padding:16px 12px 10px; transition:padding .3s ease; }
   .header h1 { font-size:1.15rem; }
   .tabs { flex-direction:column; gap:2px; }
   .tab { padding:8px; font-size:.8rem; }
@@ -162,12 +162,27 @@ table.calc th { background:var(--exp-bg); font-weight:600; text-align:left; }
   .attach-btn { width:100%; text-align:center; }
   .nav-footer { gap:8px; }
   .nav-btn { flex:1; text-align:center; padding:12px 16px; }
-  .header.scrolled h1,
-  .header.scrolled p,
-  .header.scrolled .header-controls,
-  .header.scrolled .progress-wrap { display:none; }
+
+  /* Collapsed header on scroll */
+  .header h1, .header p, .header .header-controls, .header .progress-wrap {
+    transition:max-height .3s ease, opacity .25s ease, margin .3s ease;
+    max-height:100px; opacity:1; overflow:hidden;
+  }
+  .header.scrolled h1, .header.scrolled p, .header.scrolled .header-controls, .header.scrolled .progress-wrap {
+    max-height:0; opacity:0; margin:0; padding:0;
+  }
   .header.scrolled { padding:6px 12px; }
-  .header.scrolled .tabs { margin-top:0; }
+  .header.scrolled .tabs { margin-top:0; flex-direction:row; gap:0; }
+
+  /* Collapsed tabs — only active visible */
+  .header.scrolled .tab { display:none; }
+  .header.scrolled .tab.active { display:block; flex:none; width:100%; position:relative; }
+  .header.scrolled .tab.active::after { content:' ▾'; font-size:.7rem; }
+
+  /* Expanded tab picker */
+  .header.scrolled.tabs-open .tabs { flex-direction:column; gap:2px; }
+  .header.scrolled.tabs-open .tab { display:block; }
+  .header.scrolled.tabs-open .tab.active::after { content:' ▴'; }
 }
 </style>
 </head>
@@ -782,18 +797,41 @@ function launchConfetti(){
   draw();
 }
 
-// Collapse header on mobile scroll
+// Collapse header on mobile scroll + tab picker
 (function() {
-  let ticking = false;
   const header = document.querySelector('.header');
+  const tabs = document.getElementById('tabs');
+  let ticking = false;
+
   window.addEventListener('scroll', function() {
     if (!ticking) {
       requestAnimationFrame(function() {
-        header.classList.toggle('scrolled', window.scrollY > 30);
+        const scrolled = window.scrollY > 30;
+        header.classList.toggle('scrolled', scrolled);
+        if (!scrolled) header.classList.remove('tabs-open');
         ticking = false;
       });
       ticking = true;
     }
+  });
+
+  // Tap active tab to expand picker when collapsed
+  tabs.addEventListener('click', function(e) {
+    if (!header.classList.contains('scrolled')) return;
+    const tab = e.target.closest('.tab');
+    if (!tab) return;
+    if (tab.classList.contains('active') && !header.classList.contains('tabs-open')) {
+      e.stopPropagation();
+      header.classList.add('tabs-open');
+      return;
+    }
+    // Selected a different tab — close picker
+    header.classList.remove('tabs-open');
+  });
+
+  // Close picker on outside tap
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.tabs')) header.classList.remove('tabs-open');
   });
 })();
 </script>
