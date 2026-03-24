@@ -1,0 +1,8 @@
+CLAUDE.md
+.claude/
+.superpowers/
+__pycache__/
+*.pyc
+build_pdf.py
+fonts/
+*.pdf
