@@ -162,6 +162,12 @@ table.calc th { background:var(--exp-bg); font-weight:600; text-align:left; }
   .attach-btn { width:100%; text-align:center; }
   .nav-footer { gap:8px; }
   .nav-btn { flex:1; text-align:center; padding:12px 16px; }
+  .header.scrolled h1,
+  .header.scrolled p,
+  .header.scrolled .header-controls,
+  .header.scrolled .progress-wrap { display:none; }
+  .header.scrolled { padding:6px 12px; }
+  .header.scrolled .tabs { margin-top:0; }
 }
 </style>
 </head>
@@ -775,6 +781,21 @@ function launchConfetti(){
   }
   draw();
 }
+
+// Collapse header on mobile scroll
+(function() {
+  let ticking = false;
+  const header = document.querySelector('.header');
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      requestAnimationFrame(function() {
+        header.classList.toggle('scrolled', window.scrollY > 30);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+})();
 </script>
 </body>
 </html>

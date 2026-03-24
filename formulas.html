@@ -142,6 +142,11 @@ table.calc .red { color:var(--wrong-text); font-weight:600; }
   .card { padding:16px; border-radius:10px; }
   .compare { grid-template-columns:1fr; }
   .formula-box .expr { font-size:.92rem; }
+  .header.scrolled h1,
+  .header.scrolled p,
+  .header.scrolled .header-controls { display:none; }
+  .header.scrolled { padding:6px 12px; }
+  .header.scrolled .tabs { margin-top:0; }
 }
 </style>
 </head>
@@ -830,6 +835,21 @@ function toggleTheme() {
       document.getElementById('themeBtn').innerHTML = '&#9728;&#65039; Light Mode';
     });
   }
+})();
+
+// Collapse header on mobile scroll
+(function() {
+  let ticking = false;
+  const header = document.querySelector('.header');
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      requestAnimationFrame(function() {
+        header.classList.toggle('scrolled', window.scrollY > 30);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
 })();
 </script>
 </body>
