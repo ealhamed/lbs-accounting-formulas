@@ -31,18 +31,19 @@
 * { box-sizing:border-box; margin:0; padding:0; }
 body { font-family:'Segoe UI',system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--text); line-height:1.6; transition:background var(--transition),color var(--transition); }
 
-/* Header */
-.header { background:var(--header-bg); color:#fff; padding:24px 20px 14px; text-align:center; position:sticky; top:0; z-index:100; backdrop-filter:blur(10px); }
-.header h1 { font-size:1.45rem; font-weight:700; letter-spacing:.3px; }
-.header p { opacity:.7; font-size:.85rem; margin-top:2px; }
+/* Header (top banner — scrolls away naturally) */
+.header-top { background:var(--header-bg); color:#fff; padding:24px 20px 14px; text-align:center; }
+.header-top h1 { font-size:1.45rem; font-weight:700; letter-spacing:.3px; }
+.header-top p { opacity:.7; font-size:.85rem; margin-top:2px; }
 .header-controls { display:flex; align-items:center; justify-content:center; gap:12px; margin-top:10px; }
 
 /* Dark mode toggle */
 .theme-toggle { background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.2); border-radius:20px; padding:6px 14px; cursor:pointer; color:#fff; font-size:.8rem; font-weight:600; display:flex; align-items:center; gap:6px; transition:.2s; }
 .theme-toggle:hover { background:rgba(255,255,255,.25); }
 
-/* Nav tabs */
-.tabs { display:flex; gap:2px; background:rgba(255,255,255,.1); padding:3px; border-radius:10px; max-width:720px; margin:12px auto 0; flex-wrap:wrap; }
+/* Nav tabs (sticky) */
+.tabs { display:flex; gap:2px; background:var(--header-bg); padding:8px; max-width:100%; position:sticky; top:0; z-index:100; flex-wrap:wrap; justify-content:center; }
+.tabs-inner { display:flex; gap:2px; background:rgba(255,255,255,.1); padding:3px; border-radius:10px; max-width:720px; margin:0 auto; flex-wrap:wrap; width:100%; }
 .tab { flex:1; text-align:center; padding:9px 6px; cursor:pointer; border-radius:8px; font-size:.78rem; font-weight:600; transition:.2s; color:rgba(255,255,255,.6); min-width:80px; }
 .tab.active { background:rgba(255,255,255,.2); color:#fff; }
 .tab:hover:not(.active) { background:rgba(255,255,255,.08); }
@@ -130,48 +131,39 @@ table.calc .red { color:var(--wrong-text); font-weight:600; }
 
 /* Mobile */
 @media (max-width:600px) {
-  .header { padding:16px 12px 10px; transition:padding .3s ease; }
-  .header h1 { font-size:1.15rem; }
-  .tabs { flex-direction:column; gap:2px; }
-  .tab { padding:8px; font-size:.78rem; }
+  .header-top { padding:16px 12px 10px; }
+  .header-top h1 { font-size:1.15rem; }
+  .tabs-inner { flex-direction:column; gap:2px; }
+  .tab { padding:8px; font-size:.78rem; min-width:0; }
   .container { padding:0 10px 60px; }
   .card { padding:16px; border-radius:10px; }
   .compare { grid-template-columns:1fr; }
   .formula-box .expr { font-size:.92rem; }
 
-  /* Collapsed header on scroll */
-  .header h1, .header p, .header .header-controls {
-    transition:max-height .3s ease, opacity .25s ease, margin .3s ease;
-    max-height:100px; opacity:1; overflow:hidden;
-  }
-  .header.scrolled h1, .header.scrolled p, .header.scrolled .header-controls {
-    max-height:0; opacity:0; margin:0; padding:0;
-  }
-  .header.scrolled { padding:6px 12px; }
-  .header.scrolled .tabs { margin-top:0; flex-direction:row; gap:0; }
-
-  /* Collapsed tabs — only active visible */
-  .header.scrolled .tab { display:none; }
-  .header.scrolled .tab.active { display:block; flex:none; width:100%; position:relative; }
-  .header.scrolled .tab.active::after { content:' ▾'; font-size:.7rem; }
+  /* When tabs are stuck, only show active tab */
+  .tabs.stuck .tab { display:none; }
+  .tabs.stuck .tab.active { display:block; flex:none; width:100%; position:relative; }
+  .tabs.stuck .tab.active::after { content:' ▾'; font-size:.7rem; }
 
   /* Expanded tab picker */
-  .header.scrolled.tabs-open .tabs { flex-direction:column; gap:2px; }
-  .header.scrolled.tabs-open .tab { display:block; }
-  .header.scrolled.tabs-open .tab.active::after { content:' ▴'; }
+  .tabs.stuck.tabs-open .tabs-inner { flex-direction:column; gap:2px; }
+  .tabs.stuck.tabs-open .tab { display:block; }
+  .tabs.stuck.tabs-open .tab.active::after { content:' ▴'; }
 }
 </style>
 </head>
 <body>
 
-<div class="header">
+<div class="header-top">
 <h1>CD54 Formulas & Key Concepts</h1>
 <p>Spring Practice Exam &bull; Prof. Arthur Kraft &bull; LBS EMBA</p>
 <div class="header-controls">
 <a href="index.html" class="theme-toggle" style="text-decoration:none;">&#128221; Practice Exam</a>
 <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">&#127769; Dark Mode</button>
 </div>
+</div>
 <div class="tabs" id="tabs">
+<div class="tabs-inner">
 <div class="tab active" onclick="showSection(0)">Basics</div>
 <div class="tab" onclick="showSection(1)">Revenue</div>
 <div class="tab" onclick="showSection(2)">Fixed Assets</div>
@@ -847,41 +839,36 @@ function toggleTheme() {
   }
 })();
 
-// Collapse header on mobile scroll + tab picker
+// Sticky tab picker on mobile
 (function() {
-  const header = document.querySelector('.header');
   const tabs = document.getElementById('tabs');
-  let ticking = false;
+  const headerTop = document.querySelector('.header-top');
 
-  window.addEventListener('scroll', function() {
-    if (!ticking) {
-      requestAnimationFrame(function() {
-        const scrolled = window.scrollY > 30;
-        header.classList.toggle('scrolled', scrolled);
-        if (!scrolled) header.classList.remove('tabs-open');
-        ticking = false;
-      });
-      ticking = true;
-    }
-  });
+  // Detect when tabs become stuck using IntersectionObserver on header-top
+  if (window.matchMedia('(max-width:600px)').matches) {
+    const observer = new IntersectionObserver(function(entries) {
+      // When header-top scrolls out of view, tabs are stuck
+      tabs.classList.toggle('stuck', !entries[0].isIntersecting);
+      if (entries[0].isIntersecting) tabs.classList.remove('tabs-open');
+    }, { threshold: 0 });
+    observer.observe(headerTop);
+  }
 
-  // Tap active tab to expand picker when collapsed
+  // Tap active tab to expand picker when stuck
   tabs.addEventListener('click', function(e) {
-    if (!header.classList.contains('scrolled')) return;
+    if (!tabs.classList.contains('stuck')) return;
     const tab = e.target.closest('.tab');
     if (!tab) return;
-    if (tab.classList.contains('active') && !header.classList.contains('tabs-open')) {
+    if (tab.classList.contains('active') && !tabs.classList.contains('tabs-open')) {
       e.stopPropagation();
-      header.classList.add('tabs-open');
+      tabs.classList.add('tabs-open');
       return;
     }
-    // Selected a different tab — close picker
-    header.classList.remove('tabs-open');
+    tabs.classList.remove('tabs-open');
   });
 
-  // Close picker on outside tap
   document.addEventListener('click', function(e) {
-    if (!e.target.closest('.tabs')) header.classList.remove('tabs-open');
+    if (!e.target.closest('.tabs')) tabs.classList.remove('tabs-open');
   });
 })();
 </script>
