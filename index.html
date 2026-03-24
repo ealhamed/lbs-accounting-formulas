@@ -165,13 +165,12 @@ table.calc th { background:var(--exp-bg); font-weight:600; text-align:left; }
 <body>
 <canvas id="confetti"></canvas>
 <nav class="nav">
-<div class="nav-logo"><span class="brand">CD54</span><span class="sep">|</span> Practice Exam</div>
+<div class="nav-logo">Practice Exam</div>
 <div class="nav-pills" id="tabs">
 <button class="np active" onclick="showSection(0)">Part 1: MC <span class="tab-badge" id="badge0">0/9</span></button>
 <button class="np" onclick="showSection(1)">Part 2: Diageo <span class="tab-badge" id="badge1">0/6</span></button>
 <button class="np" onclick="showSection(2)">Part 3: Short <span class="tab-badge" id="badge2">0/4</span></button>
 </div>
-<div class="nav-progress"><div class="progress-fill" id="progressFill"></div></div>
 <div class="nav-links">
 <a href="formulas.html" class="nav-link">Formulas</a>
 <button class="nav-link" onclick="toggleTheme()" id="themeBtn">🌙</button>
@@ -182,11 +181,6 @@ table.calc th { background:var(--exp-bg); font-weight:600; text-align:left; }
 
 <!-- ==================== PART 1: MC [29 pts] ==================== -->
 <div class="section active" id="sec0">
-<div class="score-bar">
-<span class="label">Part 1 Score</span>
-<span class="val" id="scoreDisplay">0 / 29</span>
-<button class="reset-btn" onclick="resetMC()">Reset All</button>
-</div>
 
 <div class="card" id="mcq1">
 <h3>Question 1 <span class="points">3 pts</span></h3>
@@ -636,10 +630,7 @@ function selectMC(qNum,chosen,correct){
   });
   if(chosen===correct)score+=MC_POINTS[qNum];
   const sd=document.getElementById('scoreDisplay');
-  sd.textContent=score+' / 29';
-  sd.classList.remove('bump');
-  void sd.offsetWidth;
-  sd.classList.add('bump');
+  if(sd){sd.textContent=score+' / 29';sd.classList.remove('bump');void sd.offsetWidth;sd.classList.add('bump');}
   const exp=document.getElementById('exp'+qNum);
   if(exp)exp.classList.add('show');
   updateProgress();
