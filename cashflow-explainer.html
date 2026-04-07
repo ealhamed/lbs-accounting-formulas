@@ -3,106 +3,120 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Direct vs Indirect Cash Flow — Interactive Explainer</title>
+<title>Three Financial Statements — Interactive Explainer</title>
 <style>
 :root {
-  --bg: #f5f6fa; --bg2: #fff; --text: #23272f; --text2: #555; --text3: #777;
-  --accent: #6366f1; --accent2: #4f46e5; --border: #e2e4ea; --border2: #eef;
+  --bg: #faf9f6; --bg2: #fff; --text: #2d2a26; --text2: #6b6560; --text3: #9a948d;
+  --accent: #6366f1; --border: #e8e4de; --border2: #f0ede8;
   --header-bg: linear-gradient(135deg,#1a1a2e,#16213e);
-  --card-shadow: 0 2px 12px rgba(0,0,0,.06);
+  --card-shadow: 0 2px 16px rgba(0,0,0,.05);
   --green: #22c55e; --green-bg: #f0fdf4; --green-text: #166534;
-  --blue-bg: #eff6ff; --blue-border: #3b82f6;
-  --orange-bg: #fffbeb; --orange-border: #f59e0b; --orange-text: #92400e;
+  --blue: #3b82f6; --blue-bg: #eff6ff; --blue-light: #dbeafe;
+  --orange: #f59e0b; --orange-bg: #fffbeb; --orange-light: #fef3c7;
+  --purple: #8b5cf6; --purple-bg: #f5f3ff; --purple-light: #ede9fe;
+  --red: #ef4444;
   --exp-bg: #f0f4ff; --exp-border: #6366f1;
-  --transition: .3s ease;
+  --t: .3s ease;
 }
 [data-theme="dark"] {
   --bg: #0f1117; --bg2: #1a1d2e; --text: #e4e6ed; --text2: #a0a4b8; --text3: #6b7090;
-  --accent: #818cf8; --accent2: #6366f1; --border: #2a2d3e; --border2: #2a2d3e;
+  --accent: #818cf8; --border: #2a2d3e; --border2: #22253a;
   --header-bg: linear-gradient(135deg,#0a0a1a,#111428);
-  --card-shadow: 0 2px 12px rgba(0,0,0,.3);
+  --card-shadow: 0 2px 16px rgba(0,0,0,.3);
   --green: #4ade80; --green-bg: #0a2e1a; --green-text: #86efac;
-  --blue-bg: #1a1d3e; --blue-border: #60a5fa;
-  --orange-bg: #2e2508; --orange-border: #d97706; --orange-text: #fcd34d;
+  --blue: #60a5fa; --blue-bg: #1a2640; --blue-light: #1e3a5f;
+  --orange: #fbbf24; --orange-bg: #2e2508; --orange-light: #3d3010;
+  --purple: #a78bfa; --purple-bg: #1f1a3e; --purple-light: #2a2050;
+  --red: #f87171;
   --exp-bg: #1a1d3e; --exp-border: #818cf8;
 }
-* { box-sizing:border-box; margin:0; padding:0; }
-body { font-family:'Segoe UI',system-ui,-apple-system,sans-serif; background:var(--bg); color:var(--text); line-height:1.6; transition:background var(--transition),color var(--transition); }
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;transition:background var(--t),color var(--t)}
 
-/* Header */
-.header { background:var(--header-bg); color:#fff; padding:2rem 1.5rem 1.5rem; text-align:center; position:relative; }
-.header h1 { font-size:1.5rem; font-weight:700; margin-bottom:.25rem; }
-.header p { font-size:.85rem; opacity:.7; }
-.theme-btn { position:absolute; top:1rem; right:1rem; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.15); border-radius:50%; width:36px; height:36px; cursor:pointer; color:#fff; font-size:1.1rem; display:flex; align-items:center; justify-content:center; transition:.2s; }
-.theme-btn:hover { background:rgba(255,255,255,.25); }
-.back-link { position:absolute; top:1rem; left:1rem; color:rgba(255,255,255,.6); text-decoration:none; font-size:.8rem; font-weight:600; transition:.2s; }
-.back-link:hover { color:#fff; }
+.header{background:var(--header-bg);color:#fff;padding:2rem 1.5rem 1.5rem;text-align:center;position:relative}
+.header h1{font-size:1.5rem;font-weight:700;margin-bottom:.25rem}
+.header p{font-size:.85rem;opacity:.6}
+.theme-btn{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15);border-radius:50%;width:36px;height:36px;cursor:pointer;color:#fff;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:.2s}
+.theme-btn:hover{background:rgba(255,255,255,.25)}
+.back-link{position:absolute;top:1rem;left:1rem;color:rgba(255,255,255,.6);text-decoration:none;font-size:.8rem;font-weight:600;transition:.2s}
+.back-link:hover{color:#fff}
 
-/* Container */
-.container { max-width:900px; margin:0 auto; padding:1.5rem 1rem 4rem; }
+.container{max-width:880px;margin:0 auto;padding:1.25rem 1rem 4rem}
+.card{background:var(--bg2);border-radius:16px;padding:24px;margin-bottom:16px;box-shadow:var(--card-shadow);border:1px solid var(--border);transition:background var(--t),border-color var(--t)}
 
-/* Cards */
-.card { background:var(--bg2); border-radius:14px; padding:24px; margin-bottom:16px; box-shadow:var(--card-shadow); border:1px solid var(--border); transition:background var(--transition),border-color var(--transition); }
-.card h2 { font-size:1.1rem; color:var(--text); margin-bottom:12px; padding-bottom:8px; border-bottom:2px solid var(--border2); }
-.card h3 { font-size:.95rem; color:var(--accent); margin:14px 0 8px; font-weight:700; }
+/* Controls */
+.controls{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px 20px;margin-bottom:6px}
+.cg{display:flex;flex-direction:column;gap:4px}
+.cg label{font-size:.78rem;font-weight:600;color:var(--text2);display:flex;justify-content:space-between}
+.cg label span{color:var(--accent);font-weight:800;font-size:.88rem}
+input[type="range"]{-webkit-appearance:none;appearance:none;width:100%;height:7px;border-radius:4px;background:var(--border);outline:none}
+input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--accent);cursor:pointer;border:3px solid var(--bg2);box-shadow:0 1px 4px rgba(0,0,0,.2)}
+input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--accent);cursor:pointer;border:3px solid var(--bg2)}
 
-/* Analogy section */
-.analogy { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:12px 0; }
-.analogy-box { border-radius:10px; padding:14px 16px; font-size:.88rem; line-height:1.6; }
-.analogy-box.direct { background:var(--blue-bg); border:1px solid var(--blue-border); }
-.analogy-box.indirect { background:var(--orange-bg); border:1px solid var(--orange-border); }
-.analogy-box strong { display:block; font-size:.82rem; text-transform:uppercase; letter-spacing:.5px; margin-bottom:4px; }
-.analogy-box.direct strong { color:var(--blue-border); }
-.analogy-box.indirect strong { color:var(--orange-border); }
+/* Statement boxes */
+.stmts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.stmt{border-radius:12px;padding:18px;border:2px solid var(--border)}
+.stmt.is{border-color:var(--purple);background:var(--purple-bg)}
+.stmt.bs{border-color:var(--blue);background:var(--blue-bg)}
+.stmt.cf{border-color:var(--green);background:var(--green-bg)}
+.stmt.cf-d{border-color:var(--blue);background:var(--blue-bg)}
+.stmt.cf-i{border-color:var(--orange);background:var(--orange-bg)}
+.stmt h3{margin:0 0 10px;font-size:.76rem;text-transform:uppercase;letter-spacing:1px;font-weight:800}
+.stmt.is h3{color:var(--purple)}
+.stmt.bs h3{color:var(--blue)}
+.stmt.cf-d h3{color:var(--blue)}
+.stmt.cf-i h3{color:var(--orange)}
 
-/* Sliders */
-.controls { display:grid; grid-template-columns:1fr 1fr; gap:12px 20px; margin:8px 0 4px; }
-.control-group { display:flex; flex-direction:column; gap:4px; }
-.control-group label { font-size:.78rem; font-weight:600; color:var(--text2); display:flex; justify-content:space-between; }
-.control-group label span { color:var(--accent); font-weight:700; font-size:.85rem; }
-input[type="range"] { -webkit-appearance:none; appearance:none; width:100%; height:6px; border-radius:3px; background:var(--border); outline:none; transition:.2s; }
-input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; appearance:none; width:18px; height:18px; border-radius:50%; background:var(--accent); cursor:pointer; border:2px solid var(--bg2); box-shadow:0 1px 4px rgba(0,0,0,.2); }
-input[type="range"]::-moz-range-thumb { width:18px; height:18px; border-radius:50%; background:var(--accent); cursor:pointer; border:2px solid var(--bg2); }
+.r{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:.88rem}
+.r .l{color:var(--text2)}
+.r .v{font-weight:800;font-family:'Segoe UI',monospace;min-width:48px;text-align:right}
+.r .v.pos{color:var(--green)} .r .v.neg{color:var(--red)}
+.r .v.pur{color:var(--purple)} .r .v.blu{color:var(--blue)} .r .v.org{color:var(--orange)}
+.r.sm{font-size:.82rem;padding:3px 0} .r.sm .l{color:var(--text3)}
+.nt{font-size:.7rem;color:var(--text3);margin:-1px 0 4px;font-style:italic;padding-left:2px}
+.dv{border:none;border-top:2px dashed var(--border);margin:5px 0}
+.tot{display:flex;justify-content:space-between;align-items:center;margin-top:6px;padding:8px 12px;border-radius:8px;font-weight:800;font-size:.95rem}
+.stmt.is .tot{background:var(--purple-light);color:var(--purple)}
+.stmt.bs .tot{background:var(--blue-light);color:var(--blue)}
+.stmt.cf-d .tot{background:var(--blue-light);color:var(--blue)}
+.stmt.cf-i .tot{background:var(--orange-light);color:var(--orange)}
 
-/* Side by side methods */
-.methods { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px; }
-.method-card { border-radius:12px; padding:18px; border:2px solid var(--border); transition:.3s; }
-.method-card.direct { border-color:var(--blue-border); }
-.method-card.indirect { border-color:var(--orange-border); }
-.method-card h3 { margin:0 0 12px; font-size:.9rem; text-transform:uppercase; letter-spacing:.5px; }
-.method-card.direct h3 { color:var(--blue-border); }
-.method-card.indirect h3 { color:var(--orange-border); }
+/* Connector */
+.conn{text-align:center;padding:6px 0;font-size:.8rem;color:var(--text3);font-weight:600}
+.conn .arrow{font-size:1.2rem;color:var(--accent)}
 
-.row { display:flex; justify-content:space-between; align-items:center; padding:6px 0; font-size:.85rem; border-bottom:1px solid var(--border); }
-.row:last-of-type { border-bottom:none; }
-.row .label { color:var(--text2); }
-.row .value { font-weight:700; font-family:'Segoe UI',monospace; min-width:60px; text-align:right; }
-.row .value.positive { color:var(--green); }
-.row .value.negative { color:#ef4444; }
-.row.separator { border-top:2px solid var(--border); margin-top:4px; padding-top:8px; }
+/* Toggle */
+.toggle-bar{display:flex;justify-content:center;gap:4px;background:var(--border2);border-radius:10px;padding:3px;width:fit-content;margin:0 auto 10px}
+.tbtn{padding:7px 16px;border-radius:8px;border:none;background:transparent;font-size:.78rem;font-weight:700;cursor:pointer;color:var(--text3);transition:.2s;font-family:inherit}
+.tbtn.ab{background:var(--blue);color:#fff}
+.tbtn.ao{background:var(--orange);color:#fff}
 
-.row-annotation { font-size:.72rem; color:var(--text3); margin:-2px 0 4px; padding-left:4px; font-style:italic; }
+/* BS columns */
+.bsc{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.bss h4{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.bss.left h4{color:var(--blue)} .bss.right h4{color:var(--purple)}
 
-/* Total highlight */
-.total-row { display:flex; justify-content:space-between; align-items:center; margin-top:8px; padding:10px 14px; border-radius:8px; font-weight:700; font-size:1rem; }
-.method-card.direct .total-row { background:var(--blue-bg); color:var(--blue-border); }
-.method-card.indirect .total-row { background:var(--orange-bg); color:var(--orange-border); }
+/* Match */
+.match{text-align:center;margin:14px 0 4px;padding:12px;border-radius:10px;background:var(--green-bg);border:2px solid var(--green);font-weight:800;font-size:.9rem;color:var(--green-text)}
 
-/* Match banner */
-.match-banner { text-align:center; margin:16px 0 8px; padding:12px; border-radius:10px; background:var(--green-bg); border:1px solid var(--green); font-weight:700; font-size:.95rem; color:var(--green-text); transition:.3s; }
+/* Links box */
+.links{margin-top:14px;padding:14px 16px;border-radius:10px;background:var(--exp-bg);border:1px solid var(--exp-border);font-size:.84rem;line-height:1.65}
+.links strong{color:var(--accent)}
+.hl{display:inline-block;padding:1px 6px;border-radius:5px;font-weight:700;font-size:.78rem}
+.hl.p{background:var(--purple-light);color:var(--purple)}
+.hl.b{background:var(--blue-light);color:var(--blue)}
+.hl.g{background:var(--green-bg);color:var(--green-text)}
 
-/* Cheat sheet */
-.cheat-grid { display:grid; grid-template-columns:auto 1fr 1fr; gap:0; font-size:.82rem; margin:8px 0; }
-.cheat-grid .ch { padding:8px 10px; border-bottom:1px solid var(--border); }
-.cheat-grid .ch-head { font-weight:700; background:var(--exp-bg); color:var(--accent); font-size:.75rem; text-transform:uppercase; letter-spacing:.5px; }
-.cheat-grid .ch:nth-child(3n+1) { font-weight:600; }
+/* Full-width stmt */
+.full{grid-column:1/-1}
 
-/* Responsive */
-@media(max-width:640px) {
-  .analogy, .methods, .controls { grid-template-columns:1fr; }
-  .header h1 { font-size:1.2rem; }
-  .container { padding:1rem .75rem 3rem; }
-  .card { padding:18px; }
+@media(max-width:640px){
+  .controls{grid-template-columns:1fr 1fr}
+  .stmts{grid-template-columns:1fr}
+  .bsc{grid-template-columns:1fr}
+  .header h1{font-size:1.2rem}
+  .container{padding:1rem .75rem 3rem}
+  .card{padding:18px}
 }
 </style>
 </head>
@@ -110,277 +124,187 @@ input[type="range"]::-moz-range-thumb { width:18px; height:18px; border-radius:5
 <div class="header">
   <a href="index.html" class="back-link">< Formulas</a>
   <button class="theme-btn" onclick="toggleTheme()" title="Toggle dark mode" id="themeBtn">*</button>
-  <h1>Direct vs Indirect Cash Flow</h1>
-  <p>Module 4 &mdash; Interactive Explainer</p>
+  <h1>The Three Financial Statements</h1>
+  <p>Interactive &mdash; drag the sliders, watch everything connect</p>
 </div>
 
 <div class="container">
-
-  <!-- ELI5 Analogy -->
-  <div class="card">
-    <h2>The ELI5 Analogy</h2>
-    <p style="font-size:.88rem;color:var(--text2);margin-bottom:10px;">Both methods answer the same question: <strong>"How much actual cash did operations generate?"</strong> They always produce the same number &mdash; just different routes to get there.</p>
-    <div class="analogy">
-      <div class="analogy-box direct">
-        <strong>Direct Method</strong>
-        Check every receipt in your wallet. Add up what came in, subtract what went out. Done.
-        <br><br>
-        <em>"Show me the cash."</em>
-      </div>
-      <div class="analogy-box indirect">
-        <strong>Indirect Method</strong>
-        Start with your reported profit. Then undo every accounting trick that wasn't real cash.
-        <br><br>
-        <em>"Start with profit, undo the non-cash stuff."</em>
-      </div>
+<div class="card">
+  <div class="controls">
+    <div class="cg">
+      <label>Revenue <span id="sRL">$10</span></label>
+      <input type="range" id="sR" min="2" max="30" step="1" value="10">
+    </div>
+    <div class="cg">
+      <label>Cash Collected <span id="sCL">80%</span></label>
+      <input type="range" id="sC" min="40" max="100" step="10" value="80">
+    </div>
+    <div class="cg">
+      <label>Expenses (cash) <span id="sSL">$4</span></label>
+      <input type="range" id="sS" min="1" max="20" step="1" value="4">
+    </div>
+    <div class="cg">
+      <label>Depreciation <span id="sDL">$2</span></label>
+      <input type="range" id="sD" min="0" max="8" step="1" value="2">
+    </div>
+    <div class="cg">
+      <label>Opening Cash <span id="sBL">$5</span></label>
+      <input type="range" id="sB" min="0" max="20" step="1" value="5">
     </div>
   </div>
 
-  <!-- Interactive Sandbox -->
-  <div class="card">
-    <h2>Interactive Sandbox &mdash; Your Lemonade Stand</h2>
-    <p style="font-size:.85rem;color:var(--text2);margin-bottom:14px;">Drag the sliders to change your lemonade stand's numbers. Watch both methods update in real time &mdash; and always land on the same total.</p>
-
-    <div class="controls">
-      <div class="control-group">
-        <label>Revenue <span id="revLabel">1,000</span></label>
-        <input type="range" id="revenue" min="200" max="3000" step="50" value="1000">
-      </div>
-      <div class="control-group">
-        <label>Cash Collected % <span id="collectLabel">80%</span></label>
-        <input type="range" id="collectPct" min="50" max="100" step="5" value="80">
-      </div>
-      <div class="control-group">
-        <label>Supplier Costs <span id="suppLabel">400</span></label>
-        <input type="range" id="suppliers" min="100" max="1500" step="50" value="400">
-      </div>
-      <div class="control-group">
-        <label>Wages <span id="wageLabel">200</span></label>
-        <input type="range" id="wages" min="50" max="1000" step="50" value="200">
-      </div>
-      <div class="control-group">
-        <label>Depreciation <span id="depLabel">300</span></label>
-        <input type="range" id="depreciation" min="0" max="800" step="50" value="300">
-      </div>
+  <div class="stmts">
+    <!-- Income Statement -->
+    <div class="stmt is">
+      <h3>Income Statement</h3>
+      <div class="r"><span class="l">Revenue</span><span class="v pos" id="X_rev">$10</span></div>
+      <div class="r"><span class="l">Expenses</span><span class="v neg" id="X_exp">-$4</span></div>
+      <div class="r"><span class="l">Depreciation</span><span class="v neg" id="X_dep">-$2</span></div>
+      <hr class="dv">
+      <div class="tot"><span>Net Income</span><span id="X_ni">$4</span></div>
     </div>
 
-    <div class="methods">
-      <!-- Direct Method -->
-      <div class="method-card direct">
-        <h3>Direct Method</h3>
-        <div class="row">
-          <span class="label">Cash from customers</span>
-          <span class="value positive" id="d_cash_in">800</span>
+    <!-- Balance Sheet -->
+    <div class="stmt bs">
+      <h3>Balance Sheet</h3>
+      <div class="bsc">
+        <div class="bss left">
+          <h4>Assets</h4>
+          <div class="r sm"><span class="l">Cash</span><span class="v" id="X_bs_cash">$9</span></div>
+          <div class="r sm"><span class="l">Receivables</span><span class="v" id="X_bs_recv">$2</span></div>
+          <div class="r sm"><span class="l">Equipment (net)</span><span class="v" id="X_bs_equip">$8</span></div>
+          <hr class="dv">
+          <div class="r" style="font-weight:800"><span class="l">Total</span><span class="v blu" id="X_bs_ta">$19</span></div>
         </div>
-        <div class="row-annotation" id="d_cash_in_note">Revenue 1,000 x 80% collected</div>
-        <div class="row">
-          <span class="label">Cash to suppliers</span>
-          <span class="value negative" id="d_suppliers">(400)</span>
-        </div>
-        <div class="row">
-          <span class="label">Cash to employees</span>
-          <span class="value negative" id="d_wages">(200)</span>
-        </div>
-        <div class="total-row">
-          <span>Cash from Ops</span>
-          <span id="d_total">200</span>
-        </div>
-      </div>
-
-      <!-- Indirect Method -->
-      <div class="method-card indirect">
-        <h3>Indirect Method</h3>
-        <div class="row">
-          <span class="label">Net Income</span>
-          <span class="value" id="i_net_income">100</span>
-        </div>
-        <div class="row-annotation" id="i_ni_note">Rev 1,000 - Supp 400 - Wages 200 - Dep 300</div>
-        <div class="row">
-          <span class="label">+ Depreciation</span>
-          <span class="value positive" id="i_dep">+300</span>
-        </div>
-        <div class="row-annotation">Non-cash expense &mdash; add it back</div>
-        <div class="row">
-          <span class="label">- Increase in Receivables</span>
-          <span class="value negative" id="i_recv">(200)</span>
-        </div>
-        <div class="row-annotation" id="i_recv_note">Revenue 1,000 - Cash collected 800 = 200 uncollected</div>
-        <div class="total-row">
-          <span>Cash from Ops</span>
-          <span id="i_total">200</span>
+        <div class="bss right">
+          <h4>Equity</h4>
+          <div class="r sm"><span class="l">Opening</span><span class="v" id="X_bs_open">$15</span></div>
+          <div class="r sm"><span class="l">+ Net Income</span><span class="v pur" id="X_bs_ni">+$4</span></div>
+          <hr class="dv">
+          <div class="r" style="font-weight:800"><span class="l">Total</span><span class="v pur" id="X_bs_te">$19</span></div>
         </div>
       </div>
     </div>
 
-    <div class="match-banner" id="matchBanner">Both methods = 200 &mdash; Always the same!</div>
-  </div>
+    <!-- Cash Flow Toggle -->
+    <div class="full">
+      <div class="conn"><span class="arrow">&#x2B07;</span> How did Cash go from <span id="X_c1">$5</span> to <span id="X_c2">$9</span>?</div>
+      <div class="toggle-bar">
+        <button class="tbtn ab" id="tD" onclick="setM('d')">Direct Method</button>
+        <button class="tbtn" id="tI" onclick="setM('i')">Indirect Method</button>
+      </div>
+    </div>
 
-  <!-- Comparison Table -->
-  <div class="card">
-    <h2>Quick Comparison</h2>
-    <div class="cheat-grid">
-      <div class="ch ch-head"></div>
-      <div class="ch ch-head">Direct</div>
-      <div class="ch ch-head">Indirect</div>
+    <!-- Direct Method CF -->
+    <div class="stmt cf-d full" id="cfD">
+      <h3>Cash Flow Statement &mdash; Direct Method</h3>
+      <div class="nt">Lists actual cash received and paid</div>
+      <div class="r"><span class="l">Cash received from customers</span><span class="v pos" id="X_d_in">+$8</span></div>
+      <div class="nt" id="X_d_in_n">Revenue $10 x 80% collected</div>
+      <div class="r"><span class="l">Cash paid for expenses</span><span class="v neg" id="X_d_exp">-$4</span></div>
+      <hr class="dv">
+      <div class="tot"><span>Cash from Operations</span><span id="X_d_ops">+$4</span></div>
+      <div class="r sm" style="margin-top:6px"><span class="l">Opening Cash</span><span class="v" id="X_d_open">$5</span></div>
+      <div class="r" style="font-weight:800"><span class="l">Closing Cash</span><span class="v blu" id="X_d_close">$9</span></div>
+    </div>
 
-      <div class="ch">Starts with</div>
-      <div class="ch">Actual cash receipts & payments</div>
-      <div class="ch">Net income from P&L</div>
-
-      <div class="ch">Logic</div>
-      <div class="ch">"What cash moved?"</div>
-      <div class="ch">"Profit said X, but here's what was non-cash"</div>
-
-      <div class="ch">Used by</div>
-      <div class="ch">~1% of companies</div>
-      <div class="ch">~99% of companies</div>
-
-      <div class="ch">Why</div>
-      <div class="ch">Requires tracking every cash flow separately</div>
-      <div class="ch">Just needs P&L + balance sheet changes</div>
-
-      <div class="ch">Exam focus</div>
-      <div class="ch">Know the concept</div>
-      <div class="ch">Know how to do the adjustments</div>
+    <!-- Indirect Method CF -->
+    <div class="stmt cf-i full" id="cfI" style="display:none">
+      <h3>Cash Flow Statement &mdash; Indirect Method</h3>
+      <div class="nt">Starts with Net Income, adjusts for non-cash items</div>
+      <div class="r"><span class="l">Net Income</span><span class="v pur" id="X_i_ni">$4</span></div>
+      <div class="nt">From the Income Statement</div>
+      <div class="r"><span class="l">+ Depreciation</span><span class="v pos" id="X_i_dep">+$2</span></div>
+      <div class="nt">Non-cash expense &mdash; add it back</div>
+      <div class="r"><span class="l">- Increase in Receivables</span><span class="v neg" id="X_i_recv">-$2</span></div>
+      <div class="nt" id="X_i_recv_n">Revenue earned but not yet collected</div>
+      <hr class="dv">
+      <div class="tot"><span>Cash from Operations</span><span id="X_i_ops">+$4</span></div>
+      <div class="r sm" style="margin-top:6px"><span class="l">Opening Cash</span><span class="v" id="X_i_open">$5</span></div>
+      <div class="r" style="font-weight:800"><span class="l">Closing Cash</span><span class="v org" id="X_i_close">$9</span></div>
     </div>
   </div>
 
-  <!-- Cheat Sheet -->
-  <div class="card">
-    <h2>Indirect Method Adjustment Cheat Sheet</h2>
-    <p style="font-size:.85rem;color:var(--text2);margin-bottom:12px;">Start with Net Income, then apply these adjustments to arrive at Cash from Operations:</p>
+  <div class="match" id="X_match">Direct = $4 &nbsp;|&nbsp; Indirect = $4 &nbsp;|&nbsp; Cash: $5 &#x2192; $9 &#x2714;</div>
 
-    <h3>1. Add Back Non-Cash Expenses</h3>
-    <div class="cheat-grid" style="grid-template-columns:1fr 1fr;">
-      <div class="ch ch-head">Item</div>
-      <div class="ch ch-head">Why add back?</div>
-      <div class="ch">Depreciation</div>
-      <div class="ch">Reduced profit but no cash left the building</div>
-      <div class="ch">Amortisation</div>
-      <div class="ch">Same &mdash; non-cash charge on intangibles</div>
-      <div class="ch">Impairment losses</div>
-      <div class="ch">Write-down, no cash involved</div>
-    </div>
-
-    <h3>2. Adjust for Working Capital Changes</h3>
-    <div class="cheat-grid" style="grid-template-columns:1fr auto auto 1fr;">
-      <div class="ch ch-head">Item</div>
-      <div class="ch ch-head">Goes Up</div>
-      <div class="ch ch-head">Goes Down</div>
-      <div class="ch ch-head">Intuition</div>
-
-      <div class="ch">Receivables</div>
-      <div class="ch" style="color:#ef4444;font-weight:700;">Subtract</div>
-      <div class="ch" style="color:var(--green);font-weight:700;">Add</div>
-      <div class="ch">Up = earned but didn't collect yet</div>
-
-      <div class="ch">Inventory</div>
-      <div class="ch" style="color:#ef4444;font-weight:700;">Subtract</div>
-      <div class="ch" style="color:var(--green);font-weight:700;">Add</div>
-      <div class="ch">Up = spent cash stocking up</div>
-
-      <div class="ch">Payables</div>
-      <div class="ch" style="color:var(--green);font-weight:700;">Add</div>
-      <div class="ch" style="color:#ef4444;font-weight:700;">Subtract</div>
-      <div class="ch">Up = owe more = kept cash longer</div>
-
-      <div class="ch">Deferred Revenue</div>
-      <div class="ch" style="color:var(--green);font-weight:700;">Add</div>
-      <div class="ch" style="color:#ef4444;font-weight:700;">Subtract</div>
-      <div class="ch">Up = collected cash before earning it</div>
-    </div>
-
-    <div style="margin-top:16px;padding:12px 16px;border-radius:10px;background:var(--exp-bg);border:1px solid var(--exp-border);font-size:.88rem;">
-      <strong style="color:var(--accent);">One-Line Takeaway:</strong> Direct = "show me the cash." Indirect = "start with profit, undo the accounting tricks." Same destination, different GPS routes.
-    </div>
+  <div class="links">
+    <strong>Three connections:</strong><br>
+    1. <span class="hl p">Net Income</span> from the Income Statement feeds into Equity on the Balance Sheet<br>
+    2. <span class="hl p">Net Income</span> is the starting point of the Indirect Method<br>
+    3. <span class="hl b">Closing Cash</span> on the Cash Flow Statement = Cash on the Balance Sheet
   </div>
-
+</div>
 </div>
 
 <script>
-// Theme toggle
-function toggleTheme() {
-  const d = document.documentElement;
-  const next = d.getAttribute('data-theme') === 'dark' ? '' : 'dark';
-  d.setAttribute('data-theme', next);
-  localStorage.setItem('cf-theme', next);
-  document.getElementById('themeBtn').textContent = next === 'dark' ? '\u2600' : '\u002A';
+function toggleTheme(){const d=document.documentElement,n=d.getAttribute('data-theme')==='dark'?'':'dark';d.setAttribute('data-theme',n);localStorage.setItem('cf-theme',n);document.getElementById('themeBtn').textContent=n==='dark'?'\u2600':'*'}
+(function(){if(localStorage.getItem('cf-theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');document.getElementById('themeBtn').textContent='\u2600'}})();
+
+function setM(m){
+  document.getElementById('cfD').style.display=m==='d'?'':'none';
+  document.getElementById('cfI').style.display=m==='i'?'':'none';
+  document.getElementById('tD').className='tbtn'+(m==='d'?' ab':'');
+  document.getElementById('tI').className='tbtn'+(m==='i'?' ao':'');
 }
-(function() {
-  const saved = localStorage.getItem('cf-theme');
-  if (saved === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
-    document.getElementById('themeBtn').textContent = '\u2600';
-  }
-})();
 
-// Format helpers
-const fmt = n => Math.abs(n).toLocaleString();
-const fmtSigned = n => n >= 0 ? '+' + fmt(n) : '(' + fmt(Math.abs(n)) + ')';
-const fmtParen = n => '(' + fmt(Math.abs(n)) + ')';
+const S={R:document.getElementById('sR'),C:document.getElementById('sC'),S:document.getElementById('sS'),D:document.getElementById('sD'),B:document.getElementById('sB')};
+const $=id=>document.getElementById(id);
+const fv=(n,s)=>{if(s&&n>0)return'+$'+n;return n<0?'-$'+Math.abs(n):'$'+n};
 
-// Slider references
-const sliders = {
-  revenue: document.getElementById('revenue'),
-  collectPct: document.getElementById('collectPct'),
-  suppliers: document.getElementById('suppliers'),
-  wages: document.getElementById('wages'),
-  depreciation: document.getElementById('depreciation'),
-};
+function update(){
+  const rev=+S.R.value,pct=+S.C.value,exp=+S.S.value,dep=+S.D.value,open=+S.B.value;
+  const cashIn=Math.round(rev*pct/100),recv=rev-cashIn;
+  const ni=rev-exp-dep;
+  const ops=cashIn-exp;
+  const close=open+ops;
+  const equipEnd=10-dep;
+  const ta=close+recv+Math.max(0,equipEnd);
+  const eqOpen=open+10;
+  const eqEnd=eqOpen+ni;
 
-function update() {
-  const rev = +sliders.revenue.value;
-  const pct = +sliders.collectPct.value;
-  const supp = +sliders.suppliers.value;
-  const wage = +sliders.wages.value;
-  const dep = +sliders.depreciation.value;
+  $('sRL').textContent='$'+rev;$('sCL').textContent=pct+'%';$('sSL').textContent='$'+exp;
+  $('sDL').textContent='$'+dep;$('sBL').textContent='$'+open;
 
-  // Derived
-  const cashIn = Math.round(rev * pct / 100);
-  const receivableIncrease = rev - cashIn;
-  const netIncome = rev - supp - wage - dep;
+  // IS
+  $('X_rev').textContent='$'+rev;$('X_exp').textContent='-$'+exp;
+  $('X_dep').textContent='-$'+dep;
+  $('X_ni').textContent=fv(ni);$('X_ni').style.color=ni<0?'var(--red)':'';
+
+  // BS
+  $('X_bs_cash').textContent='$'+close;
+  $('X_bs_recv').textContent='$'+recv;
+  $('X_bs_equip').textContent='$'+Math.max(0,equipEnd);
+  $('X_bs_ta').textContent='$'+ta;
+  $('X_bs_open').textContent='$'+eqOpen;
+  $('X_bs_ni').textContent=fv(ni,true);
+  $('X_bs_te').textContent='$'+eqEnd;
+
+  // Connectors
+  $('X_c1').textContent='$'+open;$('X_c2').textContent='$'+close;
 
   // Direct
-  const directTotal = cashIn - supp - wage;
+  $('X_d_in').textContent='+$'+cashIn;
+  $('X_d_in_n').textContent='Revenue $'+rev+' \u00d7 '+pct+'% collected';
+  $('X_d_exp').textContent='-$'+exp;
+  $('X_d_ops').textContent=fv(ops,true);
+  $('X_d_open').textContent='$'+open;
+  $('X_d_close').textContent='$'+close;
 
   // Indirect
-  const indirectTotal = netIncome + dep - receivableIncrease;
+  $('X_i_ni').textContent=fv(ni);
+  $('X_i_dep').textContent='+$'+dep;
+  $('X_i_recv').textContent=recv>0?'-$'+recv:'$0';
+  $('X_i_recv').className='v '+(recv>0?'neg':'');
+  $('X_i_recv_n').textContent=recv>0?'$'+recv+' earned but not collected yet':'All revenue collected in cash';
+  $('X_i_ops').textContent=fv(ops,true);
+  $('X_i_open').textContent='$'+open;
+  $('X_i_close').textContent='$'+close;
 
-  // Update labels
-  document.getElementById('revLabel').textContent = fmt(rev);
-  document.getElementById('collectLabel').textContent = pct + '%';
-  document.getElementById('suppLabel').textContent = fmt(supp);
-  document.getElementById('wageLabel').textContent = fmt(wage);
-  document.getElementById('depLabel').textContent = fmt(dep);
-
-  // Direct card
-  document.getElementById('d_cash_in').textContent = fmt(cashIn);
-  document.getElementById('d_cash_in').className = 'value ' + (cashIn >= 0 ? 'positive' : 'negative');
-  document.getElementById('d_cash_in_note').textContent = 'Revenue ' + fmt(rev) + ' \u00d7 ' + pct + '% collected';
-  document.getElementById('d_suppliers').textContent = fmtParen(supp);
-  document.getElementById('d_wages').textContent = fmtParen(wage);
-  document.getElementById('d_total').textContent = directTotal >= 0 ? fmt(directTotal) : fmtParen(directTotal);
-
-  // Indirect card
-  const niEl = document.getElementById('i_net_income');
-  niEl.textContent = netIncome >= 0 ? fmt(netIncome) : fmtParen(netIncome);
-  niEl.className = 'value ' + (netIncome >= 0 ? 'positive' : 'negative');
-  document.getElementById('i_ni_note').textContent =
-    'Rev ' + fmt(rev) + ' - Supp ' + fmt(supp) + ' - Wages ' + fmt(wage) + ' - Dep ' + fmt(dep);
-  document.getElementById('i_dep').textContent = '+' + fmt(dep);
-  document.getElementById('i_recv').textContent = receivableIncrease > 0 ? fmtParen(receivableIncrease) : '+' + fmt(Math.abs(receivableIncrease));
-  document.getElementById('i_recv').className = 'value ' + (receivableIncrease > 0 ? 'negative' : 'positive');
-  document.getElementById('i_recv_note').textContent =
-    'Revenue ' + fmt(rev) + ' - Cash collected ' + fmt(cashIn) + ' = ' + fmt(receivableIncrease) + ' uncollected';
-  document.getElementById('i_total').textContent = indirectTotal >= 0 ? fmt(indirectTotal) : fmtParen(indirectTotal);
-
-  // Match banner
-  document.getElementById('matchBanner').textContent =
-    'Both methods = ' + (directTotal >= 0 ? fmt(directTotal) : fmtParen(directTotal)) + ' \u2014 Always the same!';
+  // Match
+  $('X_match').innerHTML='Direct = '+fv(ops,true)+' &nbsp;|&nbsp; Indirect = '+fv(ops,true)+' &nbsp;|&nbsp; Cash: $'+open+' &#x2192; $'+close+' &#x2714;';
 }
 
-// Bind sliders
-Object.values(sliders).forEach(s => s.addEventListener('input', update));
+Object.values(S).forEach(s=>s.addEventListener('input',update));
 update();
 </script>
 </body>
