@@ -68,6 +68,13 @@ input[type="range"]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;b
 .stmt.is{border-color:var(--purple);background:var(--purple-bg)}
 .stmt.bs{border-color:var(--blue);background:var(--blue-bg)}
 .stmt.cf{border-color:var(--green);background:var(--green-bg)}
+/* Collapsible sections */
+.collapse-toggle{cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:space-between}
+.collapse-toggle::after{content:'\25B2';font-size:.6rem;color:var(--text3);transition:transform .2s}
+.collapse-toggle.collapsed::after{transform:rotate(180deg)}
+.collapsible{overflow:hidden;transition:max-height .3s ease,opacity .2s ease;max-height:500px;opacity:1}
+.collapsible.hidden{max-height:0;opacity:0}
+
 .stmt h3{margin:0 0 10px;font-size:.74rem;text-transform:uppercase;letter-spacing:1px;font-weight:800}
 .stmt.is h3{color:var(--purple)}
 .stmt.bs h3{color:var(--blue)}
@@ -213,7 +220,9 @@ input[type="range"]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;b
     </div>
   </div>
 
-  <!-- THREE STATEMENTS -->
+  <!-- THREE STATEMENTS (collapsible) -->
+  <div class="section-divider collapse-toggle" onclick="toggleSection('stmtsWrap',this)">Statements &amp; Cash Collected</div>
+  <div class="collapsible" id="stmtsWrap">
   <div class="stmts">
 
     <!-- Income Statement -->
@@ -290,6 +299,8 @@ input[type="range"]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;b
     <div class="big">Cash Collected = $450</div>
     <div class="formula-check">$500 + $30 &minus; $80 = $450</div>
   </div>
+
+  </div><!-- /collapsible stmtsWrap -->
 
   <div class="section-divider">&mdash; Same answer, two different paths &mdash;</div>
 
@@ -369,6 +380,12 @@ input[type="range"]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;b
 <script>
 function toggleTheme(){const d=document.documentElement,n=d.getAttribute('data-theme')==='dark'?'':'dark';d.setAttribute('data-theme',n);localStorage.setItem('cf-theme',n);document.getElementById('themeBtn').textContent=n==='dark'?'\u2600':'*'}
 (function(){var s=localStorage.getItem('cf-theme');if(s===null)s='dark';if(s==='dark'){document.documentElement.setAttribute('data-theme','dark');document.getElementById('themeBtn').textContent='\u2600'}})();
+
+function toggleSection(id,btn){
+  var el=document.getElementById(id);
+  el.classList.toggle('hidden');
+  btn.classList.toggle('collapsed');
+}
 
 const SL={R:document.getElementById('sR'),A:document.getElementById('sA'),D:document.getElementById('sD')};
 const $=id=>document.getElementById(id);
