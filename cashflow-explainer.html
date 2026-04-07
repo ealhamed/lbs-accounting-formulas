@@ -33,27 +33,24 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;transition:background var(--t),color var(--t)}
 
-.header{background:var(--header-bg);color:#fff;padding:2rem 1.5rem 1.5rem;text-align:center;position:relative}
-.header h1{font-size:1.5rem;font-weight:700;margin-bottom:.25rem}
-.header p{font-size:.88rem;opacity:.7;max-width:540px;margin:0 auto}
-.theme-btn{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15);border-radius:50%;width:36px;height:36px;cursor:pointer;color:#fff;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:.2s}
+.header{background:var(--header-bg);color:#fff;padding:1.75rem 1.5rem 1.25rem;text-align:center;position:relative}
+.header h1{font-size:1.5rem;font-weight:700;margin-bottom:.2rem}
+.header p{font-size:.84rem;opacity:.6}
+.theme-btn{position:absolute;top:.75rem;right:.75rem;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15);border-radius:50%;width:34px;height:34px;cursor:pointer;color:#fff;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:.2s}
 .theme-btn:hover{background:rgba(255,255,255,.25)}
-.back-link{position:absolute;top:1rem;left:1rem;color:rgba(255,255,255,.6);text-decoration:none;font-size:.8rem;font-weight:600;transition:.2s}
+.back-link{position:absolute;top:.75rem;left:.75rem;color:rgba(255,255,255,.6);text-decoration:none;font-size:.78rem;font-weight:600;transition:.2s}
 .back-link:hover{color:#fff}
 
-.container{max-width:920px;margin:0 auto;padding:1.25rem 1rem 4rem}
+.container{max-width:920px;margin:0 auto;padding:1rem 1rem 4rem}
 .card{background:var(--bg2);border-radius:16px;padding:24px;margin-bottom:16px;box-shadow:var(--card-shadow);border:1px solid var(--border);transition:background var(--t),border-color var(--t)}
 
-/* Intro */
-.setup{font-size:.86rem;color:var(--text2);padding:12px 16px;border-radius:10px;background:var(--border2);margin-bottom:16px;line-height:1.65}
-.setup strong{color:var(--text)}
-
 /* Formula highlight */
-.formula-hero{text-align:center;padding:18px 20px;border-radius:12px;background:var(--exp-bg);border:2px solid var(--exp-border);margin-bottom:18px}
-.formula-hero .label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:6px}
-.formula-hero .expr{font-size:1.15rem;font-weight:800;color:var(--text);font-family:'Segoe UI',monospace}
+.formula-hero{text-align:center;padding:16px 18px;border-radius:12px;background:var(--exp-bg);border:2px solid var(--exp-border);margin-bottom:16px}
+.formula-hero .label{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:4px}
+.formula-hero .expr{font-size:1.1rem;font-weight:800;color:var(--text);font-family:'Segoe UI',monospace;line-height:1.4}
 .formula-hero .expr .plus{color:var(--green);padding:0 2px}
 .formula-hero .expr .minus{color:var(--red);padding:0 2px}
+.formula-hero .setup{font-size:.78rem;color:var(--text3);margin-top:6px;font-weight:400}
 
 /* Controls */
 .controls{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px 24px;margin-bottom:8px}
@@ -62,8 +59,8 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
 .cg label span{color:var(--accent);font-weight:800;font-size:.9rem}
 .cg .hint{font-size:.68rem;color:var(--text3);margin-top:-2px}
 input[type="range"]{-webkit-appearance:none;appearance:none;width:100%;height:7px;border-radius:4px;background:var(--border);outline:none}
-input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--accent);cursor:pointer;border:3px solid var(--bg2);box-shadow:0 1px 4px rgba(0,0,0,.2)}
-input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--accent);cursor:pointer;border:3px solid var(--bg2)}
+input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--accent);cursor:pointer;border:3px solid var(--bg2);box-shadow:0 1px 4px rgba(0,0,0,.2)}
+input[type="range"]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--accent);cursor:pointer;border:3px solid var(--bg2)}
 
 /* Statement boxes */
 .stmts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
@@ -71,7 +68,7 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
 .stmt.is{border-color:var(--purple);background:var(--purple-bg)}
 .stmt.bs{border-color:var(--blue);background:var(--blue-bg)}
 .stmt.cf{border-color:var(--green);background:var(--green-bg)}
-.stmt h3{margin:0 0 10px;font-size:.76rem;text-transform:uppercase;letter-spacing:1px;font-weight:800}
+.stmt h3{margin:0 0 10px;font-size:.74rem;text-transform:uppercase;letter-spacing:1px;font-weight:800}
 .stmt.is h3{color:var(--purple)}
 .stmt.bs h3{color:var(--blue)}
 .stmt.cf h3{color:var(--green-text)}
@@ -109,33 +106,61 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
 .result .formula-check{font-size:.82rem;margin-top:4px;opacity:.85}
 
 /* Links box */
-.links{margin-top:14px;padding:14px 16px;border-radius:10px;background:var(--exp-bg);border:1px solid var(--exp-border);font-size:.84rem;line-height:1.65}
+.links{margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--exp-bg);border:1px solid var(--exp-border);font-size:.82rem;line-height:1.6}
 .links strong{color:var(--accent)}
-.hl{display:inline-block;padding:1px 6px;border-radius:5px;font-weight:700;font-size:.78rem}
+.hl{display:inline-block;padding:1px 6px;border-radius:5px;font-weight:700;font-size:.76rem}
 .hl.p{background:var(--purple-light);color:var(--purple)}
 .hl.b{background:var(--blue-light);color:var(--blue)}
-.hl.g{background:var(--green-bg);color:var(--green-text)}
 
 /* Try this */
 .try-section{margin-top:16px}
-.try-section h4{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:8px}
-.try{padding:10px 14px;border-radius:10px;border:1px solid var(--border);margin-bottom:8px;font-size:.86rem;line-height:1.6;cursor:pointer;transition:.2s;background:var(--bg)}
+.try-section h4{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:8px}
+.try{display:flex;gap:10px;align-items:baseline;padding:10px 14px;border-radius:10px;border:1px solid var(--border);margin-bottom:6px;font-size:.84rem;line-height:1.5;cursor:pointer;transition:.2s;background:var(--bg)}
 .try:hover{border-color:var(--accent);background:var(--exp-bg)}
-.try .try-do{font-weight:700;color:var(--text)}
-.try .try-see{color:var(--text2);margin-top:2px}
-.try .try-see strong{color:var(--accent)}
+.try .try-do{font-weight:700;color:var(--accent);white-space:nowrap;flex-shrink:0}
+.try .try-see{color:var(--text2)}
+.try .try-see strong{color:var(--text)}
 
-/* Exam tip */
-.exam-tip{margin-top:16px;padding:14px 16px;border-radius:10px;border:2px solid var(--orange);background:var(--orange-bg);font-size:.84rem;line-height:1.65}
-.exam-tip strong{color:var(--orange)}
-
+/* ====== MOBILE ====== */
 @media(max-width:700px){
-  .controls{grid-template-columns:1fr 1fr}
-  .stmts{grid-template-columns:1fr}
-  .bsc{grid-template-columns:1fr}
-  .header h1{font-size:1.2rem}
-  .container{padding:1rem .75rem 3rem}
-  .card{padding:18px}
+  .header{padding:1.5rem 1rem 1rem}
+  .header h1{font-size:1.15rem;padding-right:40px}
+  .header p{font-size:.78rem}
+  .container{padding:.75rem .75rem 3rem}
+  .card{padding:16px;border-radius:14px}
+
+  /* Formula stacks vertically */
+  .formula-hero{padding:14px;text-align:left}
+  .formula-hero .expr{font-size:.88rem;display:flex;flex-direction:column;gap:2px}
+  .formula-hero .expr .line{display:block}
+
+  /* Sliders single column */
+  .controls{grid-template-columns:1fr;gap:12px}
+  .cg label{font-size:.82rem}
+  .cg label span{font-size:.92rem}
+
+  /* Statements stack */
+  .stmts{grid-template-columns:1fr;gap:10px}
+  .stmt{padding:14px}
+  .bsc{grid-template-columns:1fr;gap:8px}
+
+  /* Hide annotation notes on mobile — labels are self-explanatory */
+  .nt{display:none}
+
+  /* Tighter rows */
+  .r{padding:4px 0;font-size:.84rem}
+  .r .l .plain{font-size:.7rem}
+  .tot{padding:7px 10px;font-size:.9rem}
+  .result{padding:12px;margin:10px 0 4px}
+  .result .big{font-size:.95rem}
+
+  /* Links box more compact */
+  .links{font-size:.8rem;padding:10px 12px;line-height:1.55}
+
+  /* Try-this: compact list */
+  .try{flex-direction:column;gap:2px;padding:8px 12px}
+  .try .try-do{font-size:.82rem}
+  .try .try-see{font-size:.78rem;line-height:1.45}
 }
 </style>
 </head>
@@ -144,36 +169,35 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
   <a href="index.html" class="back-link">< Formulas</a>
   <button class="theme-btn" onclick="toggleTheme()" title="Toggle dark mode" id="themeBtn">*</button>
   <h1>Cash Collected from Customers</h1>
-  <p>The exam favourite from Module 4 &mdash; how to find actual cash when you only have accrual numbers</p>
+  <p>Revenue isn't cash. This formula bridges the gap.</p>
 </div>
 
 <div class="container">
-<div class="card">
-
-  <div class="setup">
-    <strong>The problem:</strong> The Income Statement reports <strong>Revenue</strong> &mdash; but revenue isn't the same as cash. Some customers pay later (receivables go up), some pay in advance (deferred revenue goes up). This formula bridges the gap.
-  </div>
+<div class="card" id="top">
 
   <div class="formula-hero">
     <div class="label">The Formula</div>
-    <div class="expr">Cash Collected = Revenue <span class="plus">+</span> &Delta;Deferred Revenue <span class="minus">&minus;</span> &Delta;Receivables</div>
+    <div class="expr">
+      <span class="line">Cash Collected = Revenue</span>
+      <span class="line"><span class="plus">+</span> &Delta;Deferred Revenue <span class="minus">&minus;</span> &Delta;Receivables</span>
+    </div>
+    <div class="setup">Receivables up = earned but not collected (subtract). Deferred Revenue up = collected but not earned (add).</div>
   </div>
 
   <div class="controls">
     <div class="cg">
       <label>Revenue <span id="sRL">$500</span></label>
       <input type="range" id="sR" min="100" max="1000" step="50" value="500">
-      <div class="hint">Recognised on the Income Statement</div>
     </div>
     <div class="cg">
       <label>&Delta; Receivables <span id="sAL">+$80</span></label>
       <input type="range" id="sA" min="-100" max="200" step="10" value="80">
-      <div class="hint">+ means customers owe you more</div>
+      <div class="hint">+ customers owe more &nbsp; &minus; old debts collected</div>
     </div>
     <div class="cg">
       <label>&Delta; Deferred Revenue <span id="sDL">+$30</span></label>
       <input type="range" id="sD" min="-100" max="200" step="10" value="30">
-      <div class="hint">+ means you collected cash upfront</div>
+      <div class="hint">+ cash collected upfront &nbsp; &minus; prepayments delivered</div>
     </div>
   </div>
 
@@ -182,9 +206,9 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
 
     <!-- Income Statement -->
     <div class="stmt is">
-      <h3>Income Statement (extract)</h3>
+      <h3>Income Statement</h3>
       <div class="r hl-row">
-        <span class="l">Revenue <span class="plain">(accrual basis)</span></span>
+        <span class="l">Revenue <span class="plain">(accrual)</span></span>
         <span class="v pur" id="X_rev">$500</span>
       </div>
       <div class="nt">Recognised when earned, not when cash received</div>
@@ -207,7 +231,7 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
             <span class="l">Receivables <span class="plain">(IOUs)</span></span>
             <span class="v" id="X_bs_recv">+$80</span>
           </div>
-          <div class="nt" id="X_bs_recv_n">Customers owe you $80 more than before</div>
+          <div class="nt" id="X_bs_recv_n">Customers owe you $80 more</div>
         </div>
         <div class="bss right">
           <h4>Liabilities</h4>
@@ -215,33 +239,33 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
             <span class="l">Deferred Rev <span class="plain">(prepaid)</span></span>
             <span class="v" id="X_bs_defr">+$30</span>
           </div>
-          <div class="nt" id="X_bs_defr_n">Collected $30 for services not yet delivered</div>
+          <div class="nt" id="X_bs_defr_n">Collected $30 upfront</div>
         </div>
       </div>
     </div>
 
     <!-- Connector -->
     <div class="full">
-      <div class="conn"><span class="arrow">&#x2B07;</span> Revenue was <span id="X_c_rev">$500</span> &mdash; but how much <em>cash</em> did customers actually hand you?</div>
+      <div class="conn"><span class="arrow">&#x2B07;</span> Revenue was <span id="X_c_rev">$500</span> &mdash; how much was actually <em>cash</em>?</div>
     </div>
 
     <!-- Cash Collected Calculation -->
     <div class="stmt cf full">
       <h3>Cash Collected from Customers</h3>
       <div class="r">
-        <span class="l">Revenue <span class="plain">(from Income Statement)</span></span>
+        <span class="l">Revenue</span>
         <span class="v pur" id="X_cf_rev">$500</span>
       </div>
       <div class="r">
-        <span class="l">+ &Delta; Deferred Revenue <span class="plain">(cash collected upfront)</span></span>
+        <span class="l">+ &Delta; Deferred Rev</span>
         <span class="v" id="X_cf_defr">+$30</span>
       </div>
-      <div class="nt" id="X_cf_defr_n">Customers prepaid &mdash; you got cash but haven't earned it yet</div>
+      <div class="nt" id="X_cf_defr_n">Cash collected upfront, not yet earned</div>
       <div class="r">
-        <span class="l">&minus; &Delta; Receivables <span class="plain">(earned but not collected)</span></span>
+        <span class="l">&minus; &Delta; Receivables</span>
         <span class="v" id="X_cf_recv">-$80</span>
       </div>
-      <div class="nt" id="X_cf_recv_n">You earned it on paper, but the cash hasn't arrived</div>
+      <div class="nt" id="X_cf_recv_n">Earned on paper, cash hasn't arrived</div>
       <hr class="dv">
       <div class="tot">
         <span>Cash Collected</span>
@@ -256,38 +280,36 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
   </div>
 
   <div class="links">
-    <strong>Why does this work?</strong><br>
-    Revenue tells you what was <em>earned</em>. But two things create a gap between earned and collected:<br>
-    <span class="hl b">&Delta; Receivables up</span> = you earned it but customers haven't paid yet &rarr; <strong>subtract</strong><br>
-    <span class="hl p">&Delta; Deferred Revenue up</span> = customers paid you for stuff you haven't earned yet &rarr; <strong>add</strong><br>
-    The formula reverses both to get back to actual cash.
+    <strong>Why?</strong>
+    Revenue = what was <em>earned</em>. Two things create a gap:<br>
+    <span class="hl b">&Delta;Receivables up</span> earned but not paid &rarr; subtract &nbsp;
+    <span class="hl p">&Delta;Deferred Rev up</span> paid but not earned &rarr; add
   </div>
 
   <!-- TRY THIS -->
   <div class="try-section">
     <h4>Try this</h4>
     <div class="try" onclick="setSliders(500,0,0)">
-      <div class="try-do">Set both deltas to 0</div>
-      <div class="try-see">Cash collected = Revenue exactly. <strong>No timing differences</strong> &mdash; everyone paid on time, no prepayments. This is the simplest case.</div>
+      <div class="try-do">Both deltas &rarr; 0</div>
+      <div class="try-see">Cash = Revenue. <strong>No timing gap</strong> &mdash; everyone paid on time.</div>
     </div>
     <div class="try" onclick="setSliders(500,200,0)">
-      <div class="try-do">Set &Delta;Receivables to +$200</div>
-      <div class="try-see">Cash collected drops to $300 despite $500 revenue. <strong>$200 is stuck in IOUs</strong> &mdash; you earned it but customers haven't paid. This is why profitable companies can run out of cash.</div>
+      <div class="try-do">&Delta;Recv &rarr; +$200</div>
+      <div class="try-see">Cash drops to $300 despite $500 revenue. <strong>$200 stuck in IOUs.</strong> Profitable but cash-poor.</div>
     </div>
     <div class="try" onclick="setSliders(500,0,200)">
-      <div class="try-do">Set &Delta;Deferred Revenue to +$200</div>
-      <div class="try-see">Cash collected jumps to $700 &mdash; more than revenue! <strong>Customers prepaid $200</strong> for future services. Cash is great but you still owe them the work. Think subscriptions.</div>
+      <div class="try-do">&Delta;Deferred &rarr; +$200</div>
+      <div class="try-see">Cash jumps to $700, above revenue. <strong>Customers prepaid $200.</strong> Think subscriptions.</div>
     </div>
     <div class="try" onclick="setSliders(500,-50,0)">
-      <div class="try-do">Set &Delta;Receivables to -$50</div>
-      <div class="try-see">Cash collected = $550, <em>above</em> revenue. <strong>You collected old debts</strong> &mdash; customers paid what they owed from last period. Receivables going <em>down</em> is good for cash.</div>
+      <div class="try-do">&Delta;Recv &rarr; -$50</div>
+      <div class="try-see">Cash = $550, above revenue. <strong>Old debts collected.</strong> Receivables down = good for cash.</div>
     </div>
     <div class="try" onclick="setSliders(500,80,30)">
-      <div class="try-do">Reset to defaults</div>
-      <div class="try-see">Back to the starting numbers.</div>
+      <div class="try-do">Reset</div>
+      <div class="try-see">Back to defaults.</div>
     </div>
   </div>
-
 
 </div>
 </div>
@@ -304,6 +326,7 @@ const EXPENSES=300;
 function setSliders(rev,recv,defr){
   SL.R.value=rev;SL.A.value=recv;SL.D.value=defr;
   update();
+  document.getElementById('X_result').scrollIntoView({behavior:'smooth',block:'center'});
 }
 
 function update(){
@@ -311,7 +334,6 @@ function update(){
   const cash=rev+dDefr-dRecv;
   const ni=rev-EXPENSES;
 
-  // Labels
   $('sRL').textContent='$'+rev;
   $('sAL').textContent=fv(dRecv,true);
   $('sDL').textContent=fv(dDefr,true);
@@ -324,24 +346,22 @@ function update(){
   $('X_bs_cash').textContent=fv(cash,true);
   $('X_bs_cash').className='v '+(cash>=0?'grn':'neg');
   $('X_bs_recv').textContent=fv(dRecv,true);
-  $('X_bs_recv_n').textContent=dRecv>0?'Customers owe you $'+dRecv+' more than before':dRecv<0?'Customers paid off $'+Math.abs(dRecv)+' of old debts':'No change in what customers owe';
+  $('X_bs_recv_n').textContent=dRecv>0?'Customers owe $'+dRecv+' more':dRecv<0?'Collected $'+Math.abs(dRecv)+' of old debts':'No change';
   $('X_bs_defr').textContent=fv(dDefr,true);
-  $('X_bs_defr_n').textContent=dDefr>0?'Collected $'+dDefr+' for services not yet delivered':dDefr<0?'Delivered $'+Math.abs(dDefr)+' of previously prepaid services':'No change in prepayments';
+  $('X_bs_defr_n').textContent=dDefr>0?'Collected $'+dDefr+' upfront':dDefr<0?'Delivered $'+Math.abs(dDefr)+' of prepaid services':'No change';
 
-  // Connector
   $('X_c_rev').textContent='$'+rev;
 
-  // CF calc
+  // CF
   $('X_cf_rev').textContent='$'+rev;
   $('X_cf_defr').textContent=fv(dDefr,true);
   $('X_cf_defr').className='v '+(dDefr>0?'pos':dDefr<0?'neg':'');
-  $('X_cf_defr_n').textContent=dDefr>0?'Customers prepaid \u2014 you got cash but haven\'t earned it yet':dDefr<0?'You delivered on old prepayments \u2014 deferred revenue converted to revenue':'No prepayment changes';
+  $('X_cf_defr_n').textContent=dDefr>0?'Cash collected upfront, not yet earned':dDefr<0?'Delivered on old prepayments':'No prepayment change';
   $('X_cf_recv').textContent=dRecv!==0?fv(-dRecv,true):'$0';
   $('X_cf_recv').className='v '+(dRecv>0?'neg':dRecv<0?'pos':'');
-  $('X_cf_recv_n').textContent=dRecv>0?'You earned it on paper, but the cash hasn\'t arrived':dRecv<0?'Old receivables collected \u2014 cash caught up with past revenue':'All revenue collected in cash, no timing gap';
+  $('X_cf_recv_n').textContent=dRecv>0?'Earned on paper, cash hasn\'t arrived':dRecv<0?'Old receivables collected':'No timing gap';
   $('X_cf_total').textContent=fv(cash);
 
-  // Result
   $('X_result').innerHTML='<div class="big">Cash Collected = '+fv(cash)+'</div><div class="formula-check">$'+rev+' '+
     (dDefr>=0?'+ $'+dDefr:'&minus; $'+Math.abs(dDefr))+' '+
     (dRecv>=0?'&minus; $'+dRecv:'+ $'+Math.abs(dRecv))+' = '+fv(cash)+'</div>';
