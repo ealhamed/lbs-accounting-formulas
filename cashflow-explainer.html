@@ -112,6 +112,17 @@ input[type="range"]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;b
 .hl.p{background:var(--purple-light);color:var(--purple)}
 .hl.b{background:var(--blue-light);color:var(--blue)}
 
+/* CF comparison pair */
+.cf-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stmt.cf-d{border-color:var(--blue);background:var(--blue-bg)}
+.stmt.cf-i{border-color:var(--orange);background:var(--orange-bg)}
+.stmt.cf-d h3{color:var(--blue)}
+.stmt.cf-i h3{color:var(--orange)}
+.stmt.cf-d .tot{background:var(--blue-light);color:var(--blue)}
+.stmt.cf-i .tot{background:var(--orange-light);color:var(--orange)}
+.match{text-align:center;margin:12px 0 4px;padding:12px;border-radius:10px;background:var(--green-bg);border:2px solid var(--green);font-weight:800;font-size:.9rem;color:var(--green-text)}
+.section-divider{text-align:center;padding:10px 0;margin:6px 0;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3)}
+
 /* Try this */
 .try-section{margin-top:16px}
 .try-section h4{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:8px}
@@ -141,6 +152,7 @@ input[type="range"]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;b
 
   /* Statements stack */
   .stmts{grid-template-columns:1fr;gap:10px}
+  .cf-pair{grid-template-columns:1fr}
   .stmt{padding:14px}
   .bsc{grid-template-columns:1fr;gap:8px}
 
@@ -279,11 +291,51 @@ input[type="range"]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;b
     <div class="formula-check">$500 + $30 &minus; $80 = $450</div>
   </div>
 
+  <div class="section-divider">&mdash; Same answer, two different paths &mdash;</div>
+
+  <!-- DIRECT vs INDIRECT -->
+  <div class="cf-pair">
+    <div class="stmt cf-d">
+      <h3>Direct Method</h3>
+      <div class="nt">Lists actual cash received and paid</div>
+      <div class="r">
+        <span class="l">Cash from customers</span>
+        <span class="v pos" id="Y_d_in">+$450</span>
+      </div>
+      <div class="r">
+        <span class="l">Cash paid for expenses</span>
+        <span class="v neg">-$300</span>
+      </div>
+      <hr class="dv">
+      <div class="tot"><span>Cash from Ops</span><span id="Y_d_ops">+$150</span></div>
+    </div>
+
+    <div class="stmt cf-i">
+      <h3>Indirect Method</h3>
+      <div class="nt">Starts with profit, undoes non-cash items</div>
+      <div class="r">
+        <span class="l">Net Income</span>
+        <span class="v pur" id="Y_i_ni">$200</span>
+      </div>
+      <div class="r">
+        <span class="l">&minus; &Delta; Receivables</span>
+        <span class="v" id="Y_i_recv">-$80</span>
+      </div>
+      <div class="r">
+        <span class="l">+ &Delta; Deferred Rev</span>
+        <span class="v" id="Y_i_defr">+$30</span>
+      </div>
+      <hr class="dv">
+      <div class="tot"><span>Cash from Ops</span><span id="Y_i_ops">+$150</span></div>
+    </div>
+  </div>
+
+  <div class="match" id="Y_match">Direct = +$150 &nbsp;|&nbsp; Indirect = +$150 &mdash; Always the same.</div>
+
   <div class="links">
-    <strong>Why?</strong>
-    Revenue = what was <em>earned</em>. Two things create a gap:<br>
-    <span class="hl b">&Delta;Receivables up</span> earned but not paid &rarr; subtract &nbsp;
-    <span class="hl p">&Delta;Deferred Rev up</span> paid but not earned &rarr; add
+    <strong>Direct</strong> = "show me the actual cash flows"<br>
+    <strong>Indirect</strong> = "start with profit, adjust for timing differences"<br>
+    Same Cash from Ops. Different route. The formula above is how the Indirect method derives the customer cash line.
   </div>
 
   <!-- TRY THIS -->
@@ -365,6 +417,22 @@ function update(){
   $('X_result').innerHTML='<div class="big">Cash Collected = '+fv(cash)+'</div><div class="formula-check">$'+rev+' '+
     (dDefr>=0?'+ $'+dDefr:'&minus; $'+Math.abs(dDefr))+' '+
     (dRecv>=0?'&minus; $'+dRecv:'+ $'+Math.abs(dRecv))+' = '+fv(cash)+'</div>';
+
+  // Direct vs Indirect
+  var opsFromDirect=cash-EXPENSES; // cash collected - expenses paid
+  var opsFromIndirect=ni-dRecv+dDefr; // NI - dRecv + dDefr = same thing
+
+  $('Y_d_in').textContent=fv(cash,true);
+  $('Y_d_ops').textContent=fv(opsFromDirect,true);
+
+  $('Y_i_ni').textContent=fv(ni);
+  $('Y_i_recv').textContent=dRecv!==0?fv(-dRecv,true):'$0';
+  $('Y_i_recv').className='v '+(dRecv>0?'neg':dRecv<0?'pos':'');
+  $('Y_i_defr').textContent=fv(dDefr,true);
+  $('Y_i_defr').className='v '+(dDefr>0?'pos':dDefr<0?'neg':'');
+  $('Y_i_ops').textContent=fv(opsFromIndirect,true);
+
+  $('Y_match').innerHTML='Direct = '+fv(opsFromDirect,true)+' &nbsp;|&nbsp; Indirect = '+fv(opsFromIndirect,true)+' &mdash; Always the same.';
 }
 
 Object.values(SL).forEach(s=>s.addEventListener('input',update));
