@@ -69,11 +69,8 @@ input[type="range"]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;b
 .stmt.bs{border-color:var(--blue);background:var(--blue-bg)}
 .stmt.cf{border-color:var(--green);background:var(--green-bg)}
 /* Collapsible sections */
-.collapse-toggle{cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:space-between}
-.collapse-toggle::after{content:'\25B2';font-size:.6rem;color:var(--text3);transition:transform .2s}
-.collapse-toggle.collapsed::after{transform:rotate(180deg)}
-.collapsible{overflow:hidden;transition:max-height .3s ease,opacity .2s ease;max-height:500px;opacity:1}
-.collapsible.hidden{max-height:0;opacity:0}
+.collapsible{overflow:hidden;transition:max-height .3s ease,opacity .2s ease;max-height:2000px;opacity:1}
+.collapsible.hidden{max-height:0;opacity:0;margin:0}
 
 .stmt h3{margin:0 0 10px;font-size:.74rem;text-transform:uppercase;letter-spacing:1px;font-weight:800}
 .stmt.is h3{color:var(--purple)}
@@ -128,7 +125,11 @@ input[type="range"]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;b
 .stmt.cf-d .tot{background:var(--blue-light);color:var(--blue)}
 .stmt.cf-i .tot{background:var(--orange-light);color:var(--orange)}
 .match{text-align:center;margin:12px 0 4px;padding:12px;border-radius:10px;background:var(--green-bg);border:2px solid var(--green);font-weight:800;font-size:.9rem;color:var(--green-text)}
-.section-divider{text-align:center;padding:10px 0;margin:6px 0;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3)}
+.section-divider{text-align:center;padding:10px 0;margin:6px 0;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3)}
+.collapse-bar{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;margin:8px 0;border-radius:10px;background:var(--border2);border:1px solid var(--border);cursor:pointer;user-select:none;transition:.2s;font-size:.76rem;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:1px}
+.collapse-bar:hover{border-color:var(--accent);color:var(--accent)}
+.collapse-bar .chevron{font-size:.6rem;transition:transform .2s}
+.collapse-bar.collapsed .chevron{transform:rotate(180deg)}
 
 /* Try this */
 .try-section{margin-top:16px}
@@ -221,7 +222,10 @@ input[type="range"]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;b
   </div>
 
   <!-- THREE STATEMENTS (collapsible) -->
-  <div class="section-divider collapse-toggle" onclick="toggleSection('stmtsWrap',this)">Statements &amp; Cash Collected</div>
+  <div class="collapse-bar" id="stmtsToggle" onclick="toggleSection('stmtsWrap',this)">
+    <span>Income Statement, Balance Sheet &amp; Cash Collected</span>
+    <span class="chevron">&#x25B2;</span>
+  </div>
   <div class="collapsible" id="stmtsWrap">
   <div class="stmts">
 
