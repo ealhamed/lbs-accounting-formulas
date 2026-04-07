@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Three Financial Statements — Interactive Explainer</title>
+<title>Cash Collected from Customers — Interactive Explainer</title>
 <style>
 :root {
   --bg: #faf9f6; --bg2: #fff; --text: #2d2a26; --text2: #6b6560; --text3: #9a948d;
@@ -35,20 +35,32 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
 
 .header{background:var(--header-bg);color:#fff;padding:2rem 1.5rem 1.5rem;text-align:center;position:relative}
 .header h1{font-size:1.5rem;font-weight:700;margin-bottom:.25rem}
-.header p{font-size:.85rem;opacity:.6}
+.header p{font-size:.88rem;opacity:.7;max-width:540px;margin:0 auto}
 .theme-btn{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15);border-radius:50%;width:36px;height:36px;cursor:pointer;color:#fff;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:.2s}
 .theme-btn:hover{background:rgba(255,255,255,.25)}
 .back-link{position:absolute;top:1rem;left:1rem;color:rgba(255,255,255,.6);text-decoration:none;font-size:.8rem;font-weight:600;transition:.2s}
 .back-link:hover{color:#fff}
 
-.container{max-width:880px;margin:0 auto;padding:1.25rem 1rem 4rem}
+.container{max-width:920px;margin:0 auto;padding:1.25rem 1rem 4rem}
 .card{background:var(--bg2);border-radius:16px;padding:24px;margin-bottom:16px;box-shadow:var(--card-shadow);border:1px solid var(--border);transition:background var(--t),border-color var(--t)}
 
+/* Intro */
+.setup{font-size:.86rem;color:var(--text2);padding:12px 16px;border-radius:10px;background:var(--border2);margin-bottom:16px;line-height:1.65}
+.setup strong{color:var(--text)}
+
+/* Formula highlight */
+.formula-hero{text-align:center;padding:18px 20px;border-radius:12px;background:var(--exp-bg);border:2px solid var(--exp-border);margin-bottom:18px}
+.formula-hero .label{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);margin-bottom:6px}
+.formula-hero .expr{font-size:1.15rem;font-weight:800;color:var(--text);font-family:'Segoe UI',monospace}
+.formula-hero .expr .plus{color:var(--green);padding:0 2px}
+.formula-hero .expr .minus{color:var(--red);padding:0 2px}
+
 /* Controls */
-.controls{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px 20px;margin-bottom:6px}
+.controls{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px 24px;margin-bottom:8px}
 .cg{display:flex;flex-direction:column;gap:4px}
-.cg label{font-size:.78rem;font-weight:600;color:var(--text2);display:flex;justify-content:space-between}
-.cg label span{color:var(--accent);font-weight:800;font-size:.88rem}
+.cg label{font-size:.8rem;font-weight:600;color:var(--text2);display:flex;justify-content:space-between}
+.cg label span{color:var(--accent);font-weight:800;font-size:.9rem}
+.cg .hint{font-size:.68rem;color:var(--text3);margin-top:-2px}
 input[type="range"]{-webkit-appearance:none;appearance:none;width:100%;height:7px;border-radius:4px;background:var(--border);outline:none}
 input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--accent);cursor:pointer;border:3px solid var(--bg2);box-shadow:0 1px 4px rgba(0,0,0,.2)}
 input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--accent);cursor:pointer;border:3px solid var(--bg2)}
@@ -59,45 +71,42 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
 .stmt.is{border-color:var(--purple);background:var(--purple-bg)}
 .stmt.bs{border-color:var(--blue);background:var(--blue-bg)}
 .stmt.cf{border-color:var(--green);background:var(--green-bg)}
-.stmt.cf-d{border-color:var(--blue);background:var(--blue-bg)}
-.stmt.cf-i{border-color:var(--orange);background:var(--orange-bg)}
 .stmt h3{margin:0 0 10px;font-size:.76rem;text-transform:uppercase;letter-spacing:1px;font-weight:800}
 .stmt.is h3{color:var(--purple)}
 .stmt.bs h3{color:var(--blue)}
-.stmt.cf-d h3{color:var(--blue)}
-.stmt.cf-i h3{color:var(--orange)}
+.stmt.cf h3{color:var(--green-text)}
 
 .r{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:.88rem}
 .r .l{color:var(--text2)}
+.r .l .plain{font-size:.73rem;color:var(--text3);font-weight:400}
 .r .v{font-weight:800;font-family:'Segoe UI',monospace;min-width:48px;text-align:right}
 .r .v.pos{color:var(--green)} .r .v.neg{color:var(--red)}
-.r .v.pur{color:var(--purple)} .r .v.blu{color:var(--blue)} .r .v.org{color:var(--orange)}
+.r .v.pur{color:var(--purple)} .r .v.blu{color:var(--blue)} .r .v.grn{color:var(--green-text)}
 .r.sm{font-size:.82rem;padding:3px 0} .r.sm .l{color:var(--text3)}
+.r.hl-row{background:var(--exp-bg);margin:2px -8px;padding:5px 8px;border-radius:6px}
 .nt{font-size:.7rem;color:var(--text3);margin:-1px 0 4px;font-style:italic;padding-left:2px}
 .dv{border:none;border-top:2px dashed var(--border);margin:5px 0}
 .tot{display:flex;justify-content:space-between;align-items:center;margin-top:6px;padding:8px 12px;border-radius:8px;font-weight:800;font-size:.95rem}
 .stmt.is .tot{background:var(--purple-light);color:var(--purple)}
-.stmt.bs .tot{background:var(--blue-light);color:var(--blue)}
-.stmt.cf-d .tot{background:var(--blue-light);color:var(--blue)}
-.stmt.cf-i .tot{background:var(--orange-light);color:var(--orange)}
+.stmt.bs .tot,.stmt.bs .tot2{background:var(--blue-light);color:var(--blue)}
+.stmt.cf .tot{background:var(--green-bg);color:var(--green-text);border:1px solid var(--green)}
 
 /* Connector */
-.conn{text-align:center;padding:6px 0;font-size:.8rem;color:var(--text3);font-weight:600}
+.conn{text-align:center;padding:8px 0;font-size:.82rem;color:var(--text3);font-weight:600}
 .conn .arrow{font-size:1.2rem;color:var(--accent)}
 
-/* Toggle */
-.toggle-bar{display:flex;justify-content:center;gap:4px;background:var(--border2);border-radius:10px;padding:3px;width:fit-content;margin:0 auto 10px}
-.tbtn{padding:7px 16px;border-radius:8px;border:none;background:transparent;font-size:.78rem;font-weight:700;cursor:pointer;color:var(--text3);transition:.2s;font-family:inherit}
-.tbtn.ab{background:var(--blue);color:#fff}
-.tbtn.ao{background:var(--orange);color:#fff}
+/* Full-width */
+.full{grid-column:1/-1}
 
-/* BS columns */
+/* BS sub-columns */
 .bsc{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .bss h4{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
 .bss.left h4{color:var(--blue)} .bss.right h4{color:var(--purple)}
 
-/* Match */
-.match{text-align:center;margin:14px 0 4px;padding:12px;border-radius:10px;background:var(--green-bg);border:2px solid var(--green);font-weight:800;font-size:.9rem;color:var(--green-text)}
+/* Result highlight */
+.result{text-align:center;margin:14px 0 4px;padding:14px;border-radius:12px;background:var(--green-bg);border:2px solid var(--green);font-size:.92rem;color:var(--green-text);line-height:1.6}
+.result .big{font-weight:800;font-size:1.05rem}
+.result .formula-check{font-size:.82rem;margin-top:4px;opacity:.85}
 
 /* Links box */
 .links{margin-top:14px;padding:14px 16px;border-radius:10px;background:var(--exp-bg);border:1px solid var(--exp-border);font-size:.84rem;line-height:1.65}
@@ -107,10 +116,20 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
 .hl.b{background:var(--blue-light);color:var(--blue)}
 .hl.g{background:var(--green-bg);color:var(--green-text)}
 
-/* Full-width stmt */
-.full{grid-column:1/-1}
+/* Try this */
+.try-section{margin-top:16px}
+.try-section h4{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--accent);margin-bottom:8px}
+.try{padding:10px 14px;border-radius:10px;border:1px solid var(--border);margin-bottom:8px;font-size:.86rem;line-height:1.6;cursor:pointer;transition:.2s;background:var(--bg)}
+.try:hover{border-color:var(--accent);background:var(--exp-bg)}
+.try .try-do{font-weight:700;color:var(--text)}
+.try .try-see{color:var(--text2);margin-top:2px}
+.try .try-see strong{color:var(--accent)}
 
-@media(max-width:640px){
+/* Exam tip */
+.exam-tip{margin-top:16px;padding:14px 16px;border-radius:10px;border:2px solid var(--orange);background:var(--orange-bg);font-size:.84rem;line-height:1.65}
+.exam-tip strong{color:var(--orange)}
+
+@media(max-width:700px){
   .controls{grid-template-columns:1fr 1fr}
   .stmts{grid-template-columns:1fr}
   .bsc{grid-template-columns:1fr}
@@ -124,115 +143,155 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
 <div class="header">
   <a href="index.html" class="back-link">< Formulas</a>
   <button class="theme-btn" onclick="toggleTheme()" title="Toggle dark mode" id="themeBtn">*</button>
-  <h1>The Three Financial Statements</h1>
-  <p>Interactive &mdash; drag the sliders, watch everything connect</p>
+  <h1>Cash Collected from Customers</h1>
+  <p>The exam favourite from Module 4 &mdash; how to find actual cash when you only have accrual numbers</p>
 </div>
 
 <div class="container">
 <div class="card">
+
+  <div class="setup">
+    <strong>The problem:</strong> The Income Statement reports <strong>Revenue</strong> &mdash; but revenue isn't the same as cash. Some customers pay later (receivables go up), some pay in advance (deferred revenue goes up). This formula bridges the gap.
+  </div>
+
+  <div class="formula-hero">
+    <div class="label">The Formula</div>
+    <div class="expr">Cash Collected = Revenue <span class="plus">+</span> &Delta;Deferred Revenue <span class="minus">&minus;</span> &Delta;Receivables</div>
+  </div>
+
   <div class="controls">
     <div class="cg">
-      <label>Revenue <span id="sRL">$10</span></label>
-      <input type="range" id="sR" min="2" max="30" step="1" value="10">
+      <label>Revenue <span id="sRL">$500</span></label>
+      <input type="range" id="sR" min="100" max="1000" step="50" value="500">
+      <div class="hint">Recognised on the Income Statement</div>
     </div>
     <div class="cg">
-      <label>Cash Collected <span id="sCL">80%</span></label>
-      <input type="range" id="sC" min="40" max="100" step="10" value="80">
+      <label>&Delta; Receivables <span id="sAL">+$80</span></label>
+      <input type="range" id="sA" min="-100" max="200" step="10" value="80">
+      <div class="hint">+ means customers owe you more</div>
     </div>
     <div class="cg">
-      <label>Expenses (cash) <span id="sSL">$4</span></label>
-      <input type="range" id="sS" min="1" max="20" step="1" value="4">
-    </div>
-    <div class="cg">
-      <label>Depreciation <span id="sDL">$2</span></label>
-      <input type="range" id="sD" min="0" max="8" step="1" value="2">
-    </div>
-    <div class="cg">
-      <label>Opening Cash <span id="sBL">$5</span></label>
-      <input type="range" id="sB" min="0" max="20" step="1" value="5">
+      <label>&Delta; Deferred Revenue <span id="sDL">+$30</span></label>
+      <input type="range" id="sD" min="-100" max="200" step="10" value="30">
+      <div class="hint">+ means you collected cash upfront</div>
     </div>
   </div>
 
+  <!-- THREE STATEMENTS -->
   <div class="stmts">
+
     <!-- Income Statement -->
     <div class="stmt is">
-      <h3>Income Statement</h3>
-      <div class="r"><span class="l">Revenue</span><span class="v pos" id="X_rev">$10</span></div>
-      <div class="r"><span class="l">Expenses</span><span class="v neg" id="X_exp">-$4</span></div>
-      <div class="r"><span class="l">Depreciation</span><span class="v neg" id="X_dep">-$2</span></div>
+      <h3>Income Statement (extract)</h3>
+      <div class="r hl-row">
+        <span class="l">Revenue <span class="plain">(accrual basis)</span></span>
+        <span class="v pur" id="X_rev">$500</span>
+      </div>
+      <div class="nt">Recognised when earned, not when cash received</div>
+      <div class="r">
+        <span class="l">Expenses</span>
+        <span class="v neg">-$300</span>
+      </div>
       <hr class="dv">
-      <div class="tot"><span>Net Income</span><span id="X_ni">$4</span></div>
+      <div class="tot"><span>Net Income</span><span id="X_ni">$200</span></div>
     </div>
 
     <!-- Balance Sheet -->
     <div class="stmt bs">
-      <h3>Balance Sheet</h3>
+      <h3>Balance Sheet (changes)</h3>
       <div class="bsc">
         <div class="bss left">
           <h4>Assets</h4>
-          <div class="r sm"><span class="l">Cash</span><span class="v" id="X_bs_cash">$9</span></div>
-          <div class="r sm"><span class="l">Receivables</span><span class="v" id="X_bs_recv">$2</span></div>
-          <div class="r sm"><span class="l">Equipment (net)</span><span class="v" id="X_bs_equip">$8</span></div>
-          <hr class="dv">
-          <div class="r" style="font-weight:800"><span class="l">Total</span><span class="v blu" id="X_bs_ta">$19</span></div>
+          <div class="r sm"><span class="l">Cash</span><span class="v grn" id="X_bs_cash">+$450</span></div>
+          <div class="r sm hl-row">
+            <span class="l">Receivables <span class="plain">(IOUs)</span></span>
+            <span class="v" id="X_bs_recv">+$80</span>
+          </div>
+          <div class="nt" id="X_bs_recv_n">Customers owe you $80 more than before</div>
         </div>
         <div class="bss right">
-          <h4>Equity</h4>
-          <div class="r sm"><span class="l">Opening</span><span class="v" id="X_bs_open">$15</span></div>
-          <div class="r sm"><span class="l">+ Net Income</span><span class="v pur" id="X_bs_ni">+$4</span></div>
-          <hr class="dv">
-          <div class="r" style="font-weight:800"><span class="l">Total</span><span class="v pur" id="X_bs_te">$19</span></div>
+          <h4>Liabilities</h4>
+          <div class="r sm hl-row">
+            <span class="l">Deferred Rev <span class="plain">(prepaid)</span></span>
+            <span class="v" id="X_bs_defr">+$30</span>
+          </div>
+          <div class="nt" id="X_bs_defr_n">Collected $30 for services not yet delivered</div>
         </div>
       </div>
     </div>
 
-    <!-- Cash Flow Toggle -->
+    <!-- Connector -->
     <div class="full">
-      <div class="conn"><span class="arrow">&#x2B07;</span> How did Cash go from <span id="X_c1">$5</span> to <span id="X_c2">$9</span>?</div>
-      <div class="toggle-bar">
-        <button class="tbtn ab" id="tD" onclick="setM('d')">Direct Method</button>
-        <button class="tbtn" id="tI" onclick="setM('i')">Indirect Method</button>
+      <div class="conn"><span class="arrow">&#x2B07;</span> Revenue was <span id="X_c_rev">$500</span> &mdash; but how much <em>cash</em> did customers actually hand you?</div>
+    </div>
+
+    <!-- Cash Collected Calculation -->
+    <div class="stmt cf full">
+      <h3>Cash Collected from Customers</h3>
+      <div class="r">
+        <span class="l">Revenue <span class="plain">(from Income Statement)</span></span>
+        <span class="v pur" id="X_cf_rev">$500</span>
+      </div>
+      <div class="r">
+        <span class="l">+ &Delta; Deferred Revenue <span class="plain">(cash collected upfront)</span></span>
+        <span class="v" id="X_cf_defr">+$30</span>
+      </div>
+      <div class="nt" id="X_cf_defr_n">Customers prepaid &mdash; you got cash but haven't earned it yet</div>
+      <div class="r">
+        <span class="l">&minus; &Delta; Receivables <span class="plain">(earned but not collected)</span></span>
+        <span class="v" id="X_cf_recv">-$80</span>
+      </div>
+      <div class="nt" id="X_cf_recv_n">You earned it on paper, but the cash hasn't arrived</div>
+      <hr class="dv">
+      <div class="tot">
+        <span>Cash Collected</span>
+        <span id="X_cf_total">$450</span>
       </div>
     </div>
-
-    <!-- Direct Method CF -->
-    <div class="stmt cf-d full" id="cfD">
-      <h3>Cash Flow Statement &mdash; Direct Method</h3>
-      <div class="nt">Lists actual cash received and paid</div>
-      <div class="r"><span class="l">Cash received from customers</span><span class="v pos" id="X_d_in">+$8</span></div>
-      <div class="nt" id="X_d_in_n">Revenue $10 x 80% collected</div>
-      <div class="r"><span class="l">Cash paid for expenses</span><span class="v neg" id="X_d_exp">-$4</span></div>
-      <hr class="dv">
-      <div class="tot"><span>Cash from Operations</span><span id="X_d_ops">+$4</span></div>
-      <div class="r sm" style="margin-top:6px"><span class="l">Opening Cash</span><span class="v" id="X_d_open">$5</span></div>
-      <div class="r" style="font-weight:800"><span class="l">Closing Cash</span><span class="v blu" id="X_d_close">$9</span></div>
-    </div>
-
-    <!-- Indirect Method CF -->
-    <div class="stmt cf-i full" id="cfI" style="display:none">
-      <h3>Cash Flow Statement &mdash; Indirect Method</h3>
-      <div class="nt">Starts with Net Income, adjusts for non-cash items</div>
-      <div class="r"><span class="l">Net Income</span><span class="v pur" id="X_i_ni">$4</span></div>
-      <div class="nt">From the Income Statement</div>
-      <div class="r"><span class="l">+ Depreciation</span><span class="v pos" id="X_i_dep">+$2</span></div>
-      <div class="nt">Non-cash expense &mdash; add it back</div>
-      <div class="r"><span class="l">- Increase in Receivables</span><span class="v neg" id="X_i_recv">-$2</span></div>
-      <div class="nt" id="X_i_recv_n">Revenue earned but not yet collected</div>
-      <hr class="dv">
-      <div class="tot"><span>Cash from Operations</span><span id="X_i_ops">+$4</span></div>
-      <div class="r sm" style="margin-top:6px"><span class="l">Opening Cash</span><span class="v" id="X_i_open">$5</span></div>
-      <div class="r" style="font-weight:800"><span class="l">Closing Cash</span><span class="v org" id="X_i_close">$9</span></div>
-    </div>
   </div>
 
-  <div class="match" id="X_match">Direct = $4 &nbsp;|&nbsp; Indirect = $4 &nbsp;|&nbsp; Cash: $5 &#x2192; $9 &#x2714;</div>
+  <div class="result" id="X_result">
+    <div class="big">Cash Collected = $450</div>
+    <div class="formula-check">$500 + $30 &minus; $80 = $450</div>
+  </div>
 
   <div class="links">
-    <strong>Three connections:</strong><br>
-    1. <span class="hl p">Net Income</span> from the Income Statement feeds into Equity on the Balance Sheet<br>
-    2. <span class="hl p">Net Income</span> is the starting point of the Indirect Method<br>
-    3. <span class="hl b">Closing Cash</span> on the Cash Flow Statement = Cash on the Balance Sheet
+    <strong>Why does this work?</strong><br>
+    Revenue tells you what was <em>earned</em>. But two things create a gap between earned and collected:<br>
+    <span class="hl b">&Delta; Receivables up</span> = you earned it but customers haven't paid yet &rarr; <strong>subtract</strong><br>
+    <span class="hl p">&Delta; Deferred Revenue up</span> = customers paid you for stuff you haven't earned yet &rarr; <strong>add</strong><br>
+    The formula reverses both to get back to actual cash.
   </div>
+
+  <!-- TRY THIS -->
+  <div class="try-section">
+    <h4>Try this</h4>
+    <div class="try" onclick="setSliders(500,0,0)">
+      <div class="try-do">Set both deltas to 0</div>
+      <div class="try-see">Cash collected = Revenue exactly. <strong>No timing differences</strong> &mdash; everyone paid on time, no prepayments. This is the simplest case.</div>
+    </div>
+    <div class="try" onclick="setSliders(500,200,0)">
+      <div class="try-do">Set &Delta;Receivables to +$200</div>
+      <div class="try-see">Cash collected drops to $300 despite $500 revenue. <strong>$200 is stuck in IOUs</strong> &mdash; you earned it but customers haven't paid. This is why profitable companies can run out of cash.</div>
+    </div>
+    <div class="try" onclick="setSliders(500,0,200)">
+      <div class="try-do">Set &Delta;Deferred Revenue to +$200</div>
+      <div class="try-see">Cash collected jumps to $700 &mdash; more than revenue! <strong>Customers prepaid $200</strong> for future services. Cash is great but you still owe them the work. Think subscriptions.</div>
+    </div>
+    <div class="try" onclick="setSliders(500,-50,0)">
+      <div class="try-do">Set &Delta;Receivables to -$50</div>
+      <div class="try-see">Cash collected = $550, <em>above</em> revenue. <strong>You collected old debts</strong> &mdash; customers paid what they owed from last period. Receivables going <em>down</em> is good for cash.</div>
+    </div>
+    <div class="try" onclick="setSliders(500,80,30)">
+      <div class="try-do">Reset to defaults</div>
+      <div class="try-see">Back to the starting numbers.</div>
+    </div>
+  </div>
+
+  <div class="exam-tip">
+    <strong>Exam pattern (Module 4):</strong> You'll get an excerpt of financial statements &mdash; Revenue from the P&L, and opening/closing Receivables and Deferred Revenue from the Balance Sheet. Calculate the deltas yourself, then plug into the formula. The Adidas exercise (Module4_048) is the classic example. Remember: the formula also appears in the operating activities section of the cash flow statement.
+  </div>
+
 </div>
 </div>
 
@@ -240,71 +299,58 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
 function toggleTheme(){const d=document.documentElement,n=d.getAttribute('data-theme')==='dark'?'':'dark';d.setAttribute('data-theme',n);localStorage.setItem('cf-theme',n);document.getElementById('themeBtn').textContent=n==='dark'?'\u2600':'*'}
 (function(){if(localStorage.getItem('cf-theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');document.getElementById('themeBtn').textContent='\u2600'}})();
 
-function setM(m){
-  document.getElementById('cfD').style.display=m==='d'?'':'none';
-  document.getElementById('cfI').style.display=m==='i'?'':'none';
-  document.getElementById('tD').className='tbtn'+(m==='d'?' ab':'');
-  document.getElementById('tI').className='tbtn'+(m==='i'?' ao':'');
-}
-
-const S={R:document.getElementById('sR'),C:document.getElementById('sC'),S:document.getElementById('sS'),D:document.getElementById('sD'),B:document.getElementById('sB')};
+const SL={R:document.getElementById('sR'),A:document.getElementById('sA'),D:document.getElementById('sD')};
 const $=id=>document.getElementById(id);
-const fv=(n,s)=>{if(s&&n>0)return'+$'+n;return n<0?'-$'+Math.abs(n):'$'+n};
+const fv=(n,sign)=>{if(sign&&n>0)return'+$'+n;if(sign&&n===0)return'$0';return n<0?'-$'+Math.abs(n):'$'+n};
+const EXPENSES=300;
+
+function setSliders(rev,recv,defr){
+  SL.R.value=rev;SL.A.value=recv;SL.D.value=defr;
+  update();
+}
 
 function update(){
-  const rev=+S.R.value,pct=+S.C.value,exp=+S.S.value,dep=+S.D.value,open=+S.B.value;
-  const cashIn=Math.round(rev*pct/100),recv=rev-cashIn;
-  const ni=rev-exp-dep;
-  const ops=cashIn-exp;
-  const close=open+ops;
-  const equipEnd=10-dep;
-  const ta=close+recv+Math.max(0,equipEnd);
-  const eqOpen=open+10;
-  const eqEnd=eqOpen+ni;
+  const rev=+SL.R.value,dRecv=+SL.A.value,dDefr=+SL.D.value;
+  const cash=rev+dDefr-dRecv;
+  const ni=rev-EXPENSES;
 
-  $('sRL').textContent='$'+rev;$('sCL').textContent=pct+'%';$('sSL').textContent='$'+exp;
-  $('sDL').textContent='$'+dep;$('sBL').textContent='$'+open;
+  // Labels
+  $('sRL').textContent='$'+rev;
+  $('sAL').textContent=fv(dRecv,true);
+  $('sDL').textContent=fv(dDefr,true);
 
   // IS
-  $('X_rev').textContent='$'+rev;$('X_exp').textContent='-$'+exp;
-  $('X_dep').textContent='-$'+dep;
-  $('X_ni').textContent=fv(ni);$('X_ni').style.color=ni<0?'var(--red)':'';
+  $('X_rev').textContent='$'+rev;
+  $('X_ni').textContent=fv(ni);
 
   // BS
-  $('X_bs_cash').textContent='$'+close;
-  $('X_bs_recv').textContent='$'+recv;
-  $('X_bs_equip').textContent='$'+Math.max(0,equipEnd);
-  $('X_bs_ta').textContent='$'+ta;
-  $('X_bs_open').textContent='$'+eqOpen;
-  $('X_bs_ni').textContent=fv(ni,true);
-  $('X_bs_te').textContent='$'+eqEnd;
+  $('X_bs_cash').textContent=fv(cash,true);
+  $('X_bs_cash').className='v '+(cash>=0?'grn':'neg');
+  $('X_bs_recv').textContent=fv(dRecv,true);
+  $('X_bs_recv_n').textContent=dRecv>0?'Customers owe you $'+dRecv+' more than before':dRecv<0?'Customers paid off $'+Math.abs(dRecv)+' of old debts':'No change in what customers owe';
+  $('X_bs_defr').textContent=fv(dDefr,true);
+  $('X_bs_defr_n').textContent=dDefr>0?'Collected $'+dDefr+' for services not yet delivered':dDefr<0?'Delivered $'+Math.abs(dDefr)+' of previously prepaid services':'No change in prepayments';
 
-  // Connectors
-  $('X_c1').textContent='$'+open;$('X_c2').textContent='$'+close;
+  // Connector
+  $('X_c_rev').textContent='$'+rev;
 
-  // Direct
-  $('X_d_in').textContent='+$'+cashIn;
-  $('X_d_in_n').textContent='Revenue $'+rev+' \u00d7 '+pct+'% collected';
-  $('X_d_exp').textContent='-$'+exp;
-  $('X_d_ops').textContent=fv(ops,true);
-  $('X_d_open').textContent='$'+open;
-  $('X_d_close').textContent='$'+close;
+  // CF calc
+  $('X_cf_rev').textContent='$'+rev;
+  $('X_cf_defr').textContent=fv(dDefr,true);
+  $('X_cf_defr').className='v '+(dDefr>0?'pos':dDefr<0?'neg':'');
+  $('X_cf_defr_n').textContent=dDefr>0?'Customers prepaid \u2014 you got cash but haven\'t earned it yet':dDefr<0?'You delivered on old prepayments \u2014 deferred revenue converted to revenue':'No prepayment changes';
+  $('X_cf_recv').textContent=dRecv!==0?fv(-dRecv,true):'$0';
+  $('X_cf_recv').className='v '+(dRecv>0?'neg':dRecv<0?'pos':'');
+  $('X_cf_recv_n').textContent=dRecv>0?'You earned it on paper, but the cash hasn\'t arrived':dRecv<0?'Old receivables collected \u2014 cash caught up with past revenue':'All revenue collected in cash, no timing gap';
+  $('X_cf_total').textContent=fv(cash);
 
-  // Indirect
-  $('X_i_ni').textContent=fv(ni);
-  $('X_i_dep').textContent='+$'+dep;
-  $('X_i_recv').textContent=recv>0?'-$'+recv:'$0';
-  $('X_i_recv').className='v '+(recv>0?'neg':'');
-  $('X_i_recv_n').textContent=recv>0?'$'+recv+' earned but not collected yet':'All revenue collected in cash';
-  $('X_i_ops').textContent=fv(ops,true);
-  $('X_i_open').textContent='$'+open;
-  $('X_i_close').textContent='$'+close;
-
-  // Match
-  $('X_match').innerHTML='Direct = '+fv(ops,true)+' &nbsp;|&nbsp; Indirect = '+fv(ops,true)+' &nbsp;|&nbsp; Cash: $'+open+' &#x2192; $'+close+' &#x2714;';
+  // Result
+  $('X_result').innerHTML='<div class="big">Cash Collected = '+fv(cash)+'</div><div class="formula-check">$'+rev+' '+
+    (dDefr>=0?'+ $'+dDefr:'&minus; $'+Math.abs(dDefr))+' '+
+    (dRecv>=0?'&minus; $'+dRecv:'+ $'+Math.abs(dRecv))+' = '+fv(cash)+'</div>';
 }
 
-Object.values(S).forEach(s=>s.addEventListener('input',update));
+Object.values(SL).forEach(s=>s.addEventListener('input',update));
 update();
 </script>
 </body>
