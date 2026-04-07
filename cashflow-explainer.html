@@ -288,16 +288,13 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
     </div>
   </div>
 
-  <div class="exam-tip">
-    <strong>Exam pattern (Module 4):</strong> You'll get an excerpt of financial statements &mdash; Revenue from the P&L, and opening/closing Receivables and Deferred Revenue from the Balance Sheet. Calculate the deltas yourself, then plug into the formula. The Adidas exercise (Module4_048) is the classic example. Remember: the formula also appears in the operating activities section of the cash flow statement.
-  </div>
 
 </div>
 </div>
 
 <script>
 function toggleTheme(){const d=document.documentElement,n=d.getAttribute('data-theme')==='dark'?'':'dark';d.setAttribute('data-theme',n);localStorage.setItem('cf-theme',n);document.getElementById('themeBtn').textContent=n==='dark'?'\u2600':'*'}
-(function(){if(localStorage.getItem('cf-theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');document.getElementById('themeBtn').textContent='\u2600'}})();
+(function(){var s=localStorage.getItem('cf-theme');if(s===null)s='dark';if(s==='dark'){document.documentElement.setAttribute('data-theme','dark');document.getElementById('themeBtn').textContent='\u2600'}})();
 
 const SL={R:document.getElementById('sR'),A:document.getElementById('sA'),D:document.getElementById('sD')};
 const $=id=>document.getElementById(id);
